@@ -7,6 +7,7 @@ import usstates from '../data/us-states';
 import mexstates from '../data/mexico';
 import countries from '../data/countryoutlines';
 import lakes from '../data/greatlakes';
+import route from '../data/to_calgary';
 
 class Map extends Component {
     constructor(props){
@@ -16,6 +17,7 @@ class Map extends Component {
         this.mexstates = mexstates.features;
         this.countries = countries.features;
         this.lakes = lakes.features;
+        this.route = route.features;
         this.projection = geoAlbers().scale([this.props.width * this.props.mapScale])
                                      .rotate([this.props.centerLong, 0])
                                      .center([0, this.props.centerLat])
@@ -33,17 +35,20 @@ class Map extends Component {
                       stroke={stroke}
                       strokeWidth={strokeWidth}
                       fill={fill}
+                      className={prefix}
+                      id={`${prefix}-${i}`}
                       >
                 </path>
             ))
 
             return borders
         }
-        const countries = renderShapes(this.countries, this.path, 'country', '15px', `url(#radial-gradient)`, 'none')
-        const glakes = renderShapes(this.lakes, this.path, 'lake', '10px', `url(#radial-gradient)`, 'white')
-        const canada = renderShapes(this.canprovinces, this.path, 'can',  '0.25px', '#000', '#ffffff')
-        const us = renderShapes(this.usstates, this.path, 'us', '0.25px', '#000', '#ffffff')
-        const mexico = renderShapes(this.mexstates, this.path, 'mex', '0.25px', '#000', '#ffffff')
+        const countries = renderShapes(this.countries, this.path, 'country', '15px', `url(#radial-gradient)`, 'none');
+        const glakes = renderShapes(this.lakes, this.path, 'lake', '10px', `url(#radial-gradient)`, 'white');
+        const canada = renderShapes(this.canprovinces, this.path, 'can',  '0.25px', '#000', '#ffffff');
+        const us = renderShapes(this.usstates, this.path, 'us', '0.25px', '#000', '#ffffff');
+        const mexico = renderShapes(this.mexstates, this.path, 'mex', '0.25px', '#000', '#ffffff');
+        const theroute = renderShapes(this.route, this.path, 'route', '3px', 'green', 'none');
 
         return(
             <svg ref={this.mapRef}
@@ -67,6 +72,7 @@ class Map extends Component {
                      {canada}
                      {us}
                      {mexico}
+                     {theroute}
             </svg>
         )
     }

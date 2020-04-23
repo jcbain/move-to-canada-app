@@ -1,0 +1,34 @@
+import React, { Component } from 'react';
+
+import ProgressButton from './ProgressionButton';
+
+class ProgressDirections extends Component{
+    constructor(props) {
+        super(props);
+        this.handleBackButton = this.handleBackButton.bind(this);
+        this.handleForwardButton = this.handleForwardButton.bind(this);
+        this.state = {
+            step: 0,
+        }
+    }
+
+    handleBackButton(){
+        this.setState({step: this.state.step - 1})  
+    }
+
+    handleForwardButton(){
+        this.setState({step: this.state.step + 1})  
+    }
+
+    render(){
+        const step = this.state.step;
+        return(
+            <div>
+                <ProgressButton key={'button-1'} direction='Forward' step={step} onStepChange={this.handleForwardButton}></ProgressButton>
+                <ProgressButton key={'button-2'} direction='Backward' step={step} onStepChange={this.handleBackButton}></ProgressButton>
+            </div>
+        )
+    }
+}
+
+export default ProgressDirections;

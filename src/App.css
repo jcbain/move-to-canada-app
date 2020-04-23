@@ -1,13 +1,9 @@
 .map {
-  height: 75vh;
-  width: 60vw;
+  height: 70vh;
+  width: 70vw;
 }
 
 .map-svg {
-  height: 75vh;
-  width: 60vw;
-}
-
-.whoknow{
-  stroke: "url(#myGradient)";
+  height: 70vh;
+  width: 70vw;
 }
