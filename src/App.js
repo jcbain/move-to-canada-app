@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="map">
       <Map width={500}
-           height={500}
+           height={1000}
            mapScale={2}
            centerLong={100}
            centerLat={45}></Map>

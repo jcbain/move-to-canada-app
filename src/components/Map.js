@@ -22,28 +22,47 @@ class Map extends Component {
     mapRef = React.createRef();
 
     render(){
-        function renderBorders(data, prefix, path){
+        console.log(this.canprovinces.map(d => this.path(d)))
+        function renderShapes(data, path, prefix, strokeWidth, stroke, fill){
             const borders = data.map((d,i) => (
                 <path key={`${prefix}-${i}`}
                       d={path(d)}
-                      stroke={'#000'}
-                      strokeWidth={'0.25px'}
-                      fill={'#ffffff'}>
+                      stroke={stroke}
+                      strokeWidth={strokeWidth}
+                      fill={fill}
+                    //   clipPath={`url(#sample-clip)`} 
+                      mask={`url(#Mask)`} >
                 </path>
             ))
 
             return borders
         }
  
-        const canada = renderBorders(this.canprovinces, 'can', this.path)
-        const us = renderBorders(this.usstates, 'us', this.path)
-        const mexico = renderBorders(this.mexstates, 'mex', this.path)
+        const canada = renderShapes(this.canprovinces, this.path, 'can',  '0.25px', '#000', '#ffffff')
+        const us = renderShapes(this.usstates, this.path, 'us', '0.25px', '#000', '#ffffff')
+        const mexico = renderShapes(this.mexstates, this.path, 'mex', '0.25px', '#000', '#ffffff')
 
         return(
             <svg ref={this.mapRef}
                  className={`map-svg`}
                  viewBox={[0, 0, this.props.width, this.props.height]}
                  preserveAspectRatio="xMidYMid meet">
+                     <defs>
+                        <linearGradient id="gradient" x1={0} x2={0} y1={0} y2={1}>
+                            <stop offset="0" stopColor="black" />
+                            <stop offset="0.25" stopColor="white"></stop>
+                            <stop offset="0.75" stopColor="white"></stop>
+                            <stop offset="1" stopColor="black" />
+                        </linearGradient>
+                         <clipPath id="sample-clip">
+                             <circle cx={this.props.width/2} 
+                                     cy={this.props.height/2} 
+                                     r={this.props.width/2}></circle>
+                         </clipPath>
+                         <mask id="Mask">
+                            <rect x="0" y="0" width={this.props.width} height={this.props.height} fill="url(#gradient)"  />
+                        </mask>
+                     </defs>
                      {canada}
                      {us}
                      {mexico}
