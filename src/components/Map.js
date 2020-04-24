@@ -70,7 +70,7 @@ class Map extends Component {
         const canada = renderShapes(this.canprovinces, this.path, 'can',  '0.25px', '#000', '#ffffff');
         const us = renderShapes(this.usstates, this.path, 'us', '0.25px', '#000', '#ffffff');
         const mexico = renderShapes(this.mexstates, this.path, 'mex', '0.25px', '#000', '#ffffff');
-        const theroute = renderShapes(this.route, this.path, 'route', '3px', '#c87445', 'none');
+        const theroute = renderShapes(this.route, this.path, 'route', '0px', '#c87445', 'none');
 
         return(
             <svg ref={this.mapRef}

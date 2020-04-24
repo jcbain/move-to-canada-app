@@ -6,6 +6,7 @@ import { interpolate } from 'd3-interpolate';
 
 export const funcs = {
     blank: function() {return;},
+    sayNothing: function() {console.log('nothing')},
     addColumbia: function() {
         let projection = this.projection;
         let city = select('.map-items')
@@ -98,7 +99,8 @@ const distances = [135.85255598723776, 26.09799728478469, 464.5745649933896, 145
 export const trip = [
     {
         step: 0,
-        tripLeg: 0,
+        tripLeg: -1,
+        funcs: [funcs.blank, funcs.sayNothing]
     },
     {
         part: 0,

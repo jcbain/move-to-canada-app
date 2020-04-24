@@ -2,37 +2,37 @@ import React, { Component } from 'react';
 import { select } from 'd3-selection';
 import {easeSin} from 'd3-ease'
 
-
+import { trip } from '../data/trip';
 import ProgressButton from './ProgressionButton';
 
 class ProgressDirections extends Component{
     constructor(props) {
         super(props);
+        this.tripList = trip;
         this.handleBackButton = this.handleBackButton.bind(this);
         this.handleForwardButton = this.handleForwardButton.bind(this);
         this.state = {
             step: 0,
+            tripStep: this.tripList[0],
         }
     }
 
     componentDidUpdate(){
-        if(this.state.step === 1){
+            const step = this.state.step - 1
             let totalLength = 0;
-            if ( select(`#route-0`).node() !== null){
-                totalLength = select(`#route-0`).node().getTotalLength()
+            if ( select(`#route-${step}`).node() !== null){
+                totalLength = select(`#route-${step}`).node().getTotalLength()
             }
             let end = 0;
             let start = totalLength;
 
-            select(`#route-0`)
-                .attr("stroke-width", 2)
+            select(`#route-${step}`)
+                .attr("stroke-width", 3)
                 .attr("stroke-dasharray", totalLength + " " + totalLength)
             .attr("stroke-dashoffset", start)
             .transition(easeSin).duration(3000)
             .attr("stroke-dashoffset", end)
-            console.log(totalLength)
 
-        }
     }
 
     handleBackButton(){
@@ -43,7 +43,12 @@ class ProgressDirections extends Component{
         this.setState({step: this.state.step + 1})  
     }
 
+    componentDidMount() {
+        this.state.tripStep.funcs.map(d => d.call(this));
+    }
+
     render(){
+        console.log(this.trip)
         const step = this.state.step;
         return(
             <div>
