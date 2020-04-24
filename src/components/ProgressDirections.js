@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { select } from 'd3-selection';
+import {easeSin} from 'd3-ease'
+
 
 import ProgressButton from './ProgressionButton';
 
@@ -9,6 +12,26 @@ class ProgressDirections extends Component{
         this.handleForwardButton = this.handleForwardButton.bind(this);
         this.state = {
             step: 0,
+        }
+    }
+
+    componentDidUpdate(){
+        if(this.state.step === 1){
+            let totalLength = 0;
+            if ( select(`#route-0`).node() !== null){
+                totalLength = select(`#route-0`).node().getTotalLength()
+            }
+            let end = 0;
+            let start = totalLength;
+
+            select(`#route-0`)
+                .attr("stroke-width", 2)
+                .attr("stroke-dasharray", totalLength + " " + totalLength)
+            .attr("stroke-dashoffset", start)
+            .transition(easeSin).duration(3000)
+            .attr("stroke-dashoffset", end)
+            console.log(totalLength)
+
         }
     }
 
