@@ -13,7 +13,7 @@ class ProgressDirections extends Component{
     }
 
     handleBackButton(){
-        this.setState({step: this.state.step - 1})  
+        this.setState({step: this.state.step > 0 ? this.state.step - 1 : 0})  
     }
 
     handleForwardButton(){
@@ -24,6 +24,7 @@ class ProgressDirections extends Component{
         const step = this.state.step;
         return(
             <div>
+                <p>Step: {this.state.step}</p>
                 <ProgressButton key={'button-1'} direction='Forward' step={step} onStepChange={this.handleForwardButton}></ProgressButton>
                 <ProgressButton key={'button-2'} direction='Backward' step={step} onStepChange={this.handleBackButton}></ProgressButton>
             </div>

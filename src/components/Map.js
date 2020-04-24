@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { select } from 'd3-selection';
 import { geoAlbers, geoPath } from 'd3-geo';
+import {easeSin} from 'd3-ease'
+import 'd3-transition';
+import 'd3-ease';
 
 import canprovinces from '../data/canada';
 import usstates from '../data/us-states';
@@ -26,6 +29,25 @@ class Map extends Component {
     }
 
     mapRef = React.createRef();
+    componentDidUpdate(){
+        if(this.props.step === 1){
+            let totalLength = 0;
+            if ( select(`#route-0`).node() !== null){
+                totalLength = select(`#route-0`).node().getTotalLength()
+            }
+            let end = 0;
+            let start = totalLength;
+
+            select(`#route-0`)
+                .attr("stroke-width", 2)
+                .attr("stroke-dasharray", totalLength + " " + totalLength)
+            .attr("stroke-dashoffset", start)
+            .transition(easeSin).duration(3000)
+            .attr("stroke-dashoffset", end)
+            console.log(totalLength)
+
+        }
+    }
 
     render(){
         function renderShapes(data, path, prefix, strokeWidth, stroke, fill){
@@ -48,7 +70,7 @@ class Map extends Component {
         const canada = renderShapes(this.canprovinces, this.path, 'can',  '0.25px', '#000', '#ffffff');
         const us = renderShapes(this.usstates, this.path, 'us', '0.25px', '#000', '#ffffff');
         const mexico = renderShapes(this.mexstates, this.path, 'mex', '0.25px', '#000', '#ffffff');
-        const theroute = renderShapes(this.route, this.path, 'route', '3px', 'green', 'none');
+        const theroute = renderShapes(this.route, this.path, 'route', '3px', '#c87445', 'none');
 
         return(
             <svg ref={this.mapRef}

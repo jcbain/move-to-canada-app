@@ -1,16 +1,4 @@
-import React, { useState, Component } from 'react';
-
-
-// function ProgressionButton(props){
-//     const [count, setCount] = useState(0);
-//     const direction = (props.direction === 'forward') ? 1 : -1; 
-// return(
-//     <div>
-//         <p>You clicked {count} times</p>
-//         <button onClick={() => setCount(count + 1 * direction)}>Click Me</button>
-//     </div>
-//     )
-// }
+import React, { Component } from 'react';
 
 class ProgressionButton extends Component{
     constructor(props) {
@@ -26,8 +14,7 @@ class ProgressionButton extends Component{
         const buttonLabel = `Go ${this.props.direction}`
         return (
             <div>
-                <p>The step is on: {this.props.step}</p>
-        <button onClick={this.handleChange}>{buttonLabel}</button>
+                <button onClick={this.handleChange}>{buttonLabel}</button>
             </div>
         )
     }
