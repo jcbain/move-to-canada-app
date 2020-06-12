@@ -7,6 +7,7 @@ import { interpolate } from 'd3-interpolate';
 export const funcs = {
     blank: function() {return;},
     sayNothing: function() {console.log('nothing')},
+    progressPath: function() {},
     addColumbia: function() {
         let projection = this.projection;
         let city = select('.map-items')
@@ -64,33 +65,33 @@ export const funcs = {
         .duration(3000)
         .attr('transform', `translate(${this.props.moveX} ${this.props.moveY}) scale(${this.props.zoom})`))
     },
-    progressRoute: function() {
-        let start, end;
-        let totalLength = 0;
-        if ( select(`#route-part-${this.props.step}`).node() !== null){
-            totalLength = select(`#route-part-${this.props.step}`).node().getTotalLength()
-        }
+    // progressRoute: function() {
+    //     let start, end;
+    //     let totalLength = 0;
+    //     if ( select(`#route-part-${this.props.step}`).node() !== null){
+    //         totalLength = select(`#route-part-${this.props.step}`).node().getTotalLength()
+    //     }
 
-        if(this.props.direction === "down"){
+    //     if(this.props.direction === "down"){
             
-            end = 0;
-            start = totalLength;
-        } else {
-            end = totalLength;
-            start = 0;
-        }
-        return(
+    //         end = 0;
+    //         start = totalLength;
+    //     } else {
+    //         end = totalLength;
+    //         start = 0;
+    //     }
+    //     return(
             
-            select(`#route-part-${this.props.step}`)
-                .attr("stroke-width", 2)
-                .attr("stroke-dasharray", totalLength + " " + totalLength)
-            .attr("stroke-dashoffset", start)
-            .transition(easeSin).duration(3000)
-            .attr("stroke-dashoffset", end)
+    //         select(`#route-part-${this.props.step}`)
+    //             .attr("stroke-width", 2)
+    //             .attr("stroke-dasharray", totalLength + " " + totalLength)
+    //         .attr("stroke-dashoffset", start)
+    //         .transition(easeSin).duration(3000)
+    //         .attr("stroke-dashoffset", end)
 
 
-        )
-    },
+    //     )
+    // },
 }
 
 const distances = [135.85255598723776, 26.09799728478469, 464.5745649933896, 145.56512854380514, 33.23544231308974, 7.8000198100148115, 4.152354692104787, 11.543164934882912, 70.13160657387805, 129.52744166820193, 265.4089851686229, 136.70390475489785, 202.19826262316366, 196.7323093705185]
@@ -101,6 +102,11 @@ export const trip = [
         step: 0,
         tripLeg: -1,
         funcs: [funcs.blank, funcs.sayNothing]
+    },
+    {
+        step: 1,
+        tripLeg: 0,
+        funcs: [funcs.sayNothing]
     },
     {
         part: 0,

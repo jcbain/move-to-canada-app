@@ -13,27 +13,26 @@ class ProgressDirections extends Component{
         this.handleForwardButton = this.handleForwardButton.bind(this);
         this.state = {
             step: 0,
-            tripStep: this.tripList[0],
         }
     }
 
-    componentDidUpdate(){
-            const step = this.state.step - 1
-            let totalLength = 0;
-            if ( select(`#route-${step}`).node() !== null){
-                totalLength = select(`#route-${step}`).node().getTotalLength()
-            }
-            let end = 0;
-            let start = totalLength;
+    // componentDidUpdate(){
+    //         const step = this.state.step - 1
+    //         let totalLength = 0;
+    //         if ( select(`#route-${step}`).node() !== null){
+    //             totalLength = select(`#route-${step}`).node().getTotalLength()
+    //         }
+    //         let end = 0;
+    //         let start = totalLength;
 
-            select(`#route-${step}`)
-                .attr("stroke-width", 3)
-                .attr("stroke-dasharray", totalLength + " " + totalLength)
-            .attr("stroke-dashoffset", start)
-            .transition(easeSin).duration(3000)
-            .attr("stroke-dashoffset", end)
+    //         select(`#route-${step}`)
+    //             .attr("stroke-width", 3)
+    //             .attr("stroke-dasharray", totalLength + " " + totalLength)
+    //         .attr("stroke-dashoffset", start)
+    //         .transition(easeSin).duration(3000)
+    //         .attr("stroke-dashoffset", end)
 
-    }
+    // }
 
     handleBackButton(){
         this.setState({step: this.state.step > 0 ? this.state.step - 1 : 0})  
@@ -44,7 +43,13 @@ class ProgressDirections extends Component{
     }
 
     componentDidMount() {
-        this.state.tripStep.funcs.map(d => d.call(this));
+        this.tripList[this.state.step].funcs.map(d => d.call(this));
+    }
+    
+    componentDidUpdate() {
+        this.tripList[this.state.step].funcs.map(d => d.call(this));
+        // this.setState({tripStep: this.tripList[1]})
+        // this.setState({tripStep: this.tripList[this.state.step]})
     }
 
     render(){
