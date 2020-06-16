@@ -1,78 +1,45 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import './App.css';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+import gsap from 'gsap';
+
 
 // import Map from './components/Map';
 import Map from './components/Map2'
 import Button from '@material-ui/core/Button';
-import Route from './components/Route';
-import ProgressDirections from './components/ProgressDirections';
+gsap.registerPlugin(ScrollTrigger);
 
 
 function App(props) {
-  const [scale, setScale] = useState(1);
-  const updateScale = () => {
+  const [scale, setScale] = useState(3);
+
+  const zoomInScale = () => {
     setScale(scale + 1);
   }
+  const zoomOutScale = () => {
+    if(scale > 1){
+      setScale(scale - 1)
+    }
+  }
+
 
   return(
     <div>
       <div className="update-buttons">
-        <Button onClick={updateScale}>
-          update
-        </Button>
+        <Button variant="outlined" onClick={zoomInScale}>Zoom In</Button>
+        <Button variant="outlined" onClick={zoomOutScale}>Zoom Out</Button>
            <p>Scale {scale}</p>
       </div>
       <Map className="map"
           width={500}
           height={500}
           scale={scale}
-          centerLong={97}
-          centerLat={45}>
+          centerLong={92}
+          centerLat={39}>
       </Map>
     </div>
   )
 }
-// class App extends Component {
-//   constructor(props){
-//     super(props);
-//     this.width = 500;
-//     this.height = 500;
-//     this.centerLong = 97;
-//     this.centerLat = 45;
-//     this.mapScale = 1.75;
-//     this.state = {
-//         step: 0,
-//     }
-//   }
-
-
-
-//   render(){
-//     return (
-//       <div>
-//         <Map width={500}
-//           height={500}
-//           scale={1.75}
-//           centerLong={97}
-//           centerLat={45}>
-
-//         </Map>
-//         {/* <div className="map">
-//           <Map width={500}
-//               height={500}
-//               mapScale={1.75}
-//               centerLong={97}
-//               centerLat={45}>
-//         </Map>
-
-//         </div>
-   
-//         <ProgressDirections></ProgressDirections> */}
-        
-//       </div>
-//     );
-//   }
-
-// }
 
 export default App;
