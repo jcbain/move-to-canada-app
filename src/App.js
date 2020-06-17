@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import './App.css';
-import ScrollTrigger from 'gsap/ScrollTrigger';
-import gsap from 'gsap';
+import {Helmet} from "react-helmet";
 
 
 // import Map from './components/Map';
@@ -24,7 +23,12 @@ function App(props) {
 
 
   return(
-    <div>
+    <div className="application">
+      <Helmet>               
+        <meta charSet="utf-8" />
+          <title>Journey to Canada</title>
+          <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet" /> 
+      </Helmet>
       {/* <div className="update-buttons">
         <Button variant="outlined" onClick={zoomInScale}>Zoom In</Button>
         <Button variant="outlined" onClick={zoomOutScale}>Zoom Out</Button>
