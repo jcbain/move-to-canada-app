@@ -13,7 +13,8 @@
     "react-dom": "^16.8",
     "react-is": "^16.8",
     "react-scripts": "3.4.1",
-    "styled-components": "^5.0.0"
+    "styled-components": "^5.0.0",
+    "websocket-extensions": "^0.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
