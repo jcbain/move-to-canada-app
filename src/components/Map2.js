@@ -85,7 +85,7 @@ export default function Map(props){
         
             <MapDiv>
                 <CarOccupantDiv>
-                    <CarOccupant ref={prairieRef} triggerRef={firstLegDivRef} imgpath={prairie}
+                    <CarOccupant ref={prairieRef} triggerRef={secondLegDivRef} imgpath={prairie}
                         imgwidth={10}
                     ></CarOccupant>
                     <CarOccupant ref={pippaRef} triggerRef={firstLegDivRef} imgpath={pippa}
