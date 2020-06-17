@@ -63,78 +63,57 @@ const AnimatedRoute = forwardRef((props, ref) => {
             usePathMeasure={props.usePathMeasure}
         ></MapShape> 
       )
+})
 
+const SomethingDiv = forwardRef((props, ref) => {
+    const distanceIndex = props.targetRefIndex + 1;
+    useEffect(() => {
+        gsap.to(ref.current, {
+            scrollTrigger:{ 
+                trigger: props.triggerRef.current,
+                start: "top 90%",
+                end: "top 15%",
+                scrub: true,
+                onEnter: () => console.log('hello'),
+                onLeave: () => props.switchRef(distanceIndex),
+                toggleActions: "restart pause reverse pause" 
+            }, 
+            innerHTML: props.updatedDistance
+        }
+        )
+    }, [ref, props, distanceIndex])
+
+    return(
+        <AnotherTmpDiv ref={ref}>{props.children}</AnotherTmpDiv>
+    )
 })
 
 export default function Map(props){
-    const [distanceAnimation, setDistanceAnimation] = useState();
 
-    const [distance, setDistance] = useState(0);
-    const [prevDistance, setPrevDistance] = useState(distance);
     let tmpRef = useRef(null)
     let firstLegDivRef = useRef(null);
     let firstLegRef = useRef(null);
     let secondLegDivRef = useRef(null);
     let secondLegRef = useRef(null);
+    let thirdLegDivRef = useRef(null);
+    let thirdLegRef = useRef(null);
+
+    const divRefs = [firstLegDivRef, secondLegDivRef, thirdLegDivRef]
+    const distances = [183, 200, 1000]
+    const neededSwitches = [true, true, true, false]
+    const [targetRef, updateRef] = useState(0);
+
+
 
     const projection = createProjection(props.width, props.height, props.scale, props.centerLong, props.centerLat);
     const path = geoPath().projection(projection);
-
-    const movePath = (targetNode, triggerNode, markers) => {
-        return gsap.to(targetNode, {
-            scrollTrigger : {
-                trigger: triggerNode,
-                markers: markers,
-                start: "top 90%",
-                end: "top 15%",
-                scrub: true,
-                toggleActions: "restart pause reverse pause"     
-            },
-            strokeDashoffset: `${0}`,
-        })
-    }
-
-    // const moveDistance = (targetNode, triggerNode, startDistance, endDistance) => {
-    //     return gsap.to(targetNode, {
-    //         scrollTrigger: {
-    //             trigger: triggerNode,
-    //             start: "top 90%",
-    //             end: "top 15%",
-    //             scrub: true,
-    //             onEnter: () => setDistance(startDistance),
-    //             onLeaveBack: () => setDistance(startDistance),
-    //             // onLeave: () => setDistance(endDistance),
-    //             // onLeaveBack: () => setDistance(startDistance),
-    //             // onEnterBack: () => setDistance(startDistance),
-    //             // onLeaveBack: () => setDistance(endDistance),
-    //             toggleActions: "restart pause reverse pause"
-    //         },
-    //         innerHTML: endDistance
-    //     })
-    // }
-
-
-    // useEffect(() => {
-    //     setDistanceAnimation(
-    //         // moveDistance(tmpRef, firstLegDivRef, 0,  122),
-    //         // moveDistance(tmpRef, secondLegDivRef, 122, 143)
-
-
-    //     );
-    //     // setDistanceAnimation(
-    //     //     moveDistance2(tmpRef.current, secondLegDivRef, 122, 143)
-
-    //     // );
-    // }, [distance])
-
-
 
     return (
         <div>
         
             <MapDiv>
-                <AnotherTmpDiv className='.tmp' ref={element => {tmpRef = element;}}>{distance}</AnotherTmpDiv>
-
+                {/* <AnotherTmpDiv className='.tmp' ref={element => {tmpRef = element;}}>{distance}</AnotherTmpDiv> */}
+                <SomethingDiv ref={tmpRef} triggerRef={divRefs[targetRef]} updatedDistance={distances[targetRef]} switchRef={updateRef} targetRefIndex={targetRef} neededSwitch={neededSwitches[targetRef]}>0</SomethingDiv>
                 <MapSvg
                     className={props.className}
                     viewBox={[0, 0, props.width, props.height]}
@@ -185,28 +164,20 @@ export default function Map(props){
                             fill={'none'}
                             usePathMeasure={true}>
                         </AnimatedRoute>
-                        {/* <MapShape key='route'
-                            ref={firstLegRef}
+                        <AnimatedRoute 
+                            key={'route-3'}
+                            ref={thirdLegRef}
+                            triggerRef={thirdLegDivRef}
                             useFeatures={false}
                             className={'route'}
-                            data={[route.features[0]]}
+                            data={[route.features[2]]}
                             path={path}
                             stroke={'#000'}
                             strokeWidth={'2px'}
                             fill={'none'}
-                            usePathMeasure={true}
-                        ></MapShape>  */}
-                        {/* <MapShape key='route2'
-                            ref={secondLegRef}
-                            useFeatures={false}
-                            className={'route'}
-                            data={[route.features[1]]}
-                            path={path}
-                            stroke={'#000'}
-                            strokeWidth={'2px'}
-                            fill={'none'}
-                            usePathMeasure={true}
-                        ></MapShape>  */}
+                            usePathMeasure={true}>
+                        </AnimatedRoute>
+
                 </MapSvg>
 
             </MapDiv>
@@ -223,6 +194,13 @@ export default function Map(props){
 
             </TmpDiv>
             <TmpDiv ref={secondLegDivRef}>
+                ...and so Jennifer set off from Columbia, MO, our home of 10ish years to where we grew up in Kansas City, MO. This was the end of a chapter, perhaps even a book and a new one was about to begin. We had thousands of miles ahead of us, three border crossings, 
+                nearly half of the states in the US and a handful of provinces yet ahead.
+                Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
+                Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
+            </TmpDiv>
+
+            <TmpDiv ref={thirdLegDivRef}>
                 ...and so Jennifer set off from Columbia, MO, our home of 10ish years to where we grew up in Kansas City, MO. This was the end of a chapter, perhaps even a book and a new one was about to begin. We had thousands of miles ahead of us, three border crossings, 
                 nearly half of the states in the US and a handful of provinces yet ahead.
                 Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
