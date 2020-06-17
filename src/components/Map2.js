@@ -1,17 +1,15 @@
 import React, { useState, useEffect, useRef, forwardRef } from 'react';
 import { geoPath } from 'd3-geo';
 import styled from 'styled-components';
-import ScrollTrigger from 'gsap/ScrollTrigger';
-import gsap from 'gsap';
 
-import MapShape from './MapShape';
+import{ MapShape, AnimatedRoute } from './MapShapes';
+import { MileageTracker } from './MileageTracker';
 import {createProjection} from '../helpers/mapperHelpers'
 
 import canadianProvinces from '../data/canada';
 import usStates from '../data/us-states';
 import route from '../data/to_calgary';
 
-gsap.registerPlugin(ScrollTrigger);
 
 
 const MapDiv = styled.div`
@@ -30,64 +28,7 @@ const TmpDiv = styled.div`
     width: 20vw;
 `
 
-const AnotherTmpDiv = styled.div`
-    position: absolute;
-    left: 90vw;
-`
 
-const AnimatedRoute = forwardRef((props, ref) => {
-    useEffect(() => {
-        gsap.to(ref.current, {
-          scrollTrigger: {
-              trigger: props.triggerRef.current,
-              markers: false,
-              start: "top 90%",
-              end: "top 15%",
-              scrub: true,
-              toggleActions: "restart pause reverse pause"     
-            },
-            strokeDashoffset: `${0}`,
-        });
-      }, [props.triggerRef, ref]);
-
-      return (
-        <MapShape
-            ref={ref}
-            useFeatures={props.useFeatures}
-            className={props.className}
-            data={props.data}
-            path={props.path}
-            stroke={props.stroke}
-            strokeWidth={props.strokeWidth}
-            fill={props.fill}
-            usePathMeasure={props.usePathMeasure}
-        ></MapShape> 
-      )
-})
-
-const SomethingDiv = forwardRef((props, ref) => {
-    console.log(props.maxIndex)
-    const distanceIndex = props.targetRefIndex < props.maxIndex ? props.targetRefIndex + 1 : props.targetRefIndex;
-    useEffect(() => {
-        gsap.to(ref.current, {
-            scrollTrigger:{ 
-                trigger: props.triggerRef.current,
-                start: "top 90%",
-                end: "top 15%",
-                scrub: true,
-                onEnter: () => console.log('hello'),
-                onLeave: () => props.switchRef(distanceIndex),
-                toggleActions: "restart pause reverse pause" 
-            }, 
-            innerHTML: props.updatedDistance
-        }
-        )
-    }, [ref, props, distanceIndex])
-
-    return(
-        <AnotherTmpDiv ref={ref}>{props.children}</AnotherTmpDiv>
-    )
-})
 
 export default function Map(props){
 
@@ -113,7 +54,7 @@ export default function Map(props){
         
             <MapDiv>
                 {/* <AnotherTmpDiv className='.tmp' ref={element => {tmpRef = element;}}>{distance}</AnotherTmpDiv> */}
-                <SomethingDiv ref={tmpRef} triggerRef={divRefs[targetRef]} updatedDistance={distances[targetRef]} switchRef={updateRef} targetRefIndex={targetRef} maxIndex={divRefs.length}>0</SomethingDiv>
+                <MileageTracker ref={tmpRef} triggerRef={divRefs[targetRef]} updatedDistance={distances[targetRef]} switchRef={updateRef} targetRefIndex={targetRef} maxIndex={divRefs.length}>0</MileageTracker>
                 <MapSvg
                     className={props.className}
                     viewBox={[0, 0, props.width, props.height]}
