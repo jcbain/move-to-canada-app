@@ -40,7 +40,7 @@ const AnimatedRoute = forwardRef((props, ref) => {
         gsap.to(ref.current, {
           scrollTrigger: {
               trigger: props.triggerRef.current,
-              markers: true,
+              markers: false,
               start: "top 90%",
               end: "top 15%",
               scrub: true,
@@ -66,7 +66,8 @@ const AnimatedRoute = forwardRef((props, ref) => {
 })
 
 const SomethingDiv = forwardRef((props, ref) => {
-    const distanceIndex = props.targetRefIndex + 1;
+    console.log(props.maxIndex)
+    const distanceIndex = props.targetRefIndex < props.maxIndex ? props.targetRefIndex + 1 : props.targetRefIndex;
     useEffect(() => {
         gsap.to(ref.current, {
             scrollTrigger:{ 
@@ -100,7 +101,6 @@ export default function Map(props){
 
     const divRefs = [firstLegDivRef, secondLegDivRef, thirdLegDivRef]
     const distances = [183, 200, 1000]
-    const neededSwitches = [true, true, true, false]
     const [targetRef, updateRef] = useState(0);
 
 
@@ -113,7 +113,7 @@ export default function Map(props){
         
             <MapDiv>
                 {/* <AnotherTmpDiv className='.tmp' ref={element => {tmpRef = element;}}>{distance}</AnotherTmpDiv> */}
-                <SomethingDiv ref={tmpRef} triggerRef={divRefs[targetRef]} updatedDistance={distances[targetRef]} switchRef={updateRef} targetRefIndex={targetRef} neededSwitch={neededSwitches[targetRef]}>0</SomethingDiv>
+                <SomethingDiv ref={tmpRef} triggerRef={divRefs[targetRef]} updatedDistance={distances[targetRef]} switchRef={updateRef} targetRefIndex={targetRef} maxIndex={divRefs.length}>0</SomethingDiv>
                 <MapSvg
                     className={props.className}
                     viewBox={[0, 0, props.width, props.height]}
