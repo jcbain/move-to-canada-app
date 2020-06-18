@@ -191,6 +191,7 @@ export default function Map(props){
                         </AnimatedRoute>
                         <MapMarker ref={circleRef}
                             pathRef={firstLegRef}
+                            triggerRef={firstLegDivRef}
                             projection={projection}
                             lat={39}
                             lon={-92}>    
