@@ -5,7 +5,9 @@ import styled from 'styled-components';
 import{ MapShape, AnimatedRoute } from './MapShapes';
 import { MileageTracker } from './MileageTracker';
 import { CarOccupant } from './CarOccupant';
+import { MapMarker } from './MapMarker';
 import {createProjection} from '../helpers/mapperHelpers'
+
 
 import canadianProvinces from '../data/canada';
 import usStates from '../data/us-states';
@@ -40,19 +42,22 @@ const TrackerDiv = styled.div`
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     padding-left: 1vw;
-    height: 12vh;
+    height: 15vh;
 `
 
 const CarOccupantDiv = styled.div`
     position: absolute;
-    left: 46vw;
+    left: 45vw;
     width: 30vw;
     background-color: #fff;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     padding-left: 1vw;
-    display: flex;
-    height: 12vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    height: 15vh;
 `
 
 
@@ -71,7 +76,7 @@ export default function Map(props){
     let thirdLegRef = useRef(null);
     let prairieRef = useRef(null);
     let pippaRef = useRef(null);
-
+    let circleRef = useRef(null)
     const divRefs = [firstLegDivRef, secondLegDivRef, thirdLegDivRef]
     const distances = [183, 200, 1000]
     const [targetRef, updateRef] = useState(0);
@@ -80,6 +85,9 @@ export default function Map(props){
 
     const projection = createProjection(props.width, props.height, props.scale, props.centerLong, props.centerLat);
     const path = geoPath().projection(projection);
+    console.log(projection.invert([250, 250]))
+
+
     return (
         <div>
         
@@ -87,9 +95,11 @@ export default function Map(props){
                 <CarOccupantDiv>
                     <CarOccupant ref={prairieRef} triggerRef={secondLegDivRef} imgpath={prairie}
                         imgwidth={10}
+                        imgheight={12}
                     ></CarOccupant>
                     <CarOccupant ref={pippaRef} triggerRef={firstLegDivRef} imgpath={pippa}
                         imgwidth={10}
+                        imgheight={12}
                     ></CarOccupant>
                 </CarOccupantDiv>
                 <TrackerDiv>
@@ -179,6 +189,12 @@ export default function Map(props){
                             fill={'none'}
                             usePathMeasure={true}>
                         </AnimatedRoute>
+                        <MapMarker ref={circleRef}
+                            pathRef={firstLegRef}
+                            projection={projection}
+                            lat={39}
+                            lon={-92}>    
+                        </MapMarker>
 
                 </MapSvg>
 

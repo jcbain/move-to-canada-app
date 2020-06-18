@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const OccupantDiv = styled.div`
     width: ${props => props.imgwidth}vw;
+    height: ${props => props.imgheight}vh;
 `;
 
 const StyledImg = styled.img`
@@ -36,7 +37,7 @@ export const CarOccupant = forwardRef((props, ref) => {
 
 
     return(
-        <OccupantDiv imgwidth={props.imgwidth}>
+        <OccupantDiv imgwidth={props.imgwidth} imgheight={props.imgheight}>
             <StyledImg ref={ref}
                 src={imgpath}
                 imgopacity={imgopacity}
