@@ -27,6 +27,8 @@ export const MapShape = forwardRef((props, ref) => {
 })
 
 export const AnimatedRoute = forwardRef((props, ref) => {
+
+
     useEffect(() => {
         gsap.to(ref.current, {
           scrollTrigger: {

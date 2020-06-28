@@ -17,7 +17,6 @@ const IconUmbrella = forwardRef((props, ref)=>{
 
 export const MapMarker = forwardRef((props, ref) => {
     const [projectedLon, projectedLat] = props.projection([props.lon, props.lat]);
-    
     useEffect(() => {
         gsap.to(ref.current, {
             scrollTrigger: { 

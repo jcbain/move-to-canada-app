@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, forwardRef } from 'react';
 import { geoPath } from 'd3-geo';
 import styled from 'styled-components';
+import TweenMax from 'gsap';
 
 import{ MapShape, AnimatedRoute } from './MapShapes';
 import { MileageTracker } from './MileageTracker';
@@ -8,13 +9,13 @@ import { CarOccupant } from './CarOccupant';
 import { MapMarker } from './MapMarker';
 import {createProjection} from '../helpers/mapperHelpers'
 
-
 import canadianProvinces from '../data/canada';
 import usStates from '../data/us-states';
 import route from '../data/to_calgary';
 import prairie from '../img/prairie.png';
 import pippa from '../img/pippa.png';
-
+import { Button } from '@material-ui/core';
+import gsap from 'gsap/gsap-core';
 
 const MapDiv = styled.div`
     top: 0;
@@ -61,6 +62,36 @@ const CarOccupantDiv = styled.div`
 `
 
 
+const SampleSomething = forwardRef((props, ref) => {
+    const [count, setCount] = useState(0)
+    let newCount = {count: 0}
+    
+    useEffect(() => {
+        gsap.to(newCount, {
+            scrollTrigger: { 
+                trigger: props.triggerRef.current,
+                start: "top 90%",
+                end: "top 15%",
+                scrub: true,
+                toggleActions: "restart pause reverse pause"  
+            },
+            count: 20
+        })
+    }, [props, newCount])
+
+    useEffect(() => {
+        console.log(newCount)
+    })
+
+
+    return (
+        <div ref={ref}>
+            {newCount.count}
+        </div>
+    )
+})
+
+
 
 
 
@@ -79,6 +110,8 @@ export default function Map(props){
     let jenRef = useRef(null);
     let jamesRef = useRef(null);
     let circleRef = useRef(null)
+    let mapRef = useRef(null)
+
     const divRefs = [firstLegDivRef, secondLegDivRef, thirdLegDivRef];
     const legRefs = [firstLegRef, secondLegRef, thirdLegRef];
     const distances = [
@@ -99,18 +132,35 @@ export default function Map(props){
       ]
     const [targetRef, updateRef] = useState(0);
 
+    const [centerLong, setCenterLong] = useState(92);
+    const [centerLat, setCenterLat] = useState(39)
 
 
-    const projection = createProjection(props.width, props.height, props.scale, props.centerLong, props.centerLat);
+
+    // const projection = createProjection(props.width, props.height, props.scale, props.centerLong, props.centerLat);
+    const projection = createProjection(props.width, props.height, props.scale, centerLong, centerLat);
     const path = geoPath().projection(projection);
-    console.log(projection.invert([250, 250]))
+    console.log(projection([-96, 43]))
 
-
+    useEffect(() => {
+        gsap.to(mapRef.current, {
+            scrollTrigger: { 
+                trigger: thirdLegDivRef.current,
+                start: "top 90%",
+                end: "top 15%",
+                scrub: true,
+                toggleActions: "restart pause reverse pause"  
+            },
+            attr: {viewBox: `-107 -148 500 500`}
+        })
+    }, [])
     return (
         <div>
         
             <MapDiv>
+
                 <CarOccupantDiv>
+
                     <CarOccupant ref={prairieRef} triggerRef={secondLegDivRef} imgpath={prairie}
                         imgwidth={10}
                         imgheight={12}
@@ -152,7 +202,7 @@ export default function Map(props){
                         fontjustify={['end', 'start']}
                         >0</MileageTracker>
                 </TrackerDiv>
-                <MapSvg
+                <MapSvg ref={mapRef}
                     className={props.className}
                     viewBox={[0, 0, props.width, props.height]}
                     width={98}
@@ -232,6 +282,8 @@ export default function Map(props){
                 Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
             </TextDiv>
             <TextDiv ref={firstLegDivRef}>
+           
+
                 I can't say that I am that surprised, but to be quite honest, I wasn't nearly anticipating that much phlegm. A little fore warning sure does go a long way in this day and age.
                 Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
                 Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
