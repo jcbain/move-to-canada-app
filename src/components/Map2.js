@@ -47,14 +47,14 @@ const TrackerDiv = styled.div`
 
 const CarOccupantDiv = styled.div`
     position: absolute;
-    left: 45vw;
-    width: 30vw;
+    left: 30.5vw;
+    width: 45vw;
     background-color: #fff;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     padding-left: 1vw;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
     justify-items: center;
     height: 15vh;
@@ -76,9 +76,27 @@ export default function Map(props){
     let thirdLegRef = useRef(null);
     let prairieRef = useRef(null);
     let pippaRef = useRef(null);
+    let jenRef = useRef(null);
+    let jamesRef = useRef(null);
     let circleRef = useRef(null)
-    const divRefs = [firstLegDivRef, secondLegDivRef, thirdLegDivRef]
-    const distances = [183, 200, 1000]
+    const divRefs = [firstLegDivRef, secondLegDivRef, thirdLegDivRef];
+    const legRefs = [firstLegRef, secondLegRef, thirdLegRef];
+    const distances = [
+        218.7226151394528,
+        260.74039076795617,
+        1008.7054404073135,
+        1243.0652973628398,
+        1296.5743594869143,
+        1309.1323913810381,
+        1315.8176824353268,
+        1334.4021779804882,
+        1447.3140645644319,
+        1655.853245650237,
+        2083.16171177172,
+        2303.2549984271054,
+        2628.794201250399,
+        2945.533219336934
+      ]
     const [targetRef, updateRef] = useState(0);
 
 
@@ -101,6 +119,14 @@ export default function Map(props){
                         imgwidth={10}
                         imgheight={12}
                     ></CarOccupant>
+                    <CarOccupant ref={jenRef} triggerRef={secondLegDivRef} imgpath={prairie}
+                        imgwidth={10}
+                        imgheight={12}
+                    ></CarOccupant>
+                    <CarOccupant ref={jamesRef} triggerRef={firstLegDivRef} imgpath={pippa}
+                        imgwidth={10}
+                        imgheight={12}
+                    ></CarOccupant>
                 </CarOccupantDiv>
                 <TrackerDiv>
                     <MileageTracker ref={mainDistanceRef} 
@@ -110,7 +136,7 @@ export default function Map(props){
                         targetRefIndex={targetRef} 
                         maxIndex={divRefs.length}
                         useKM={true}
-                        fontsizes={[`2rem`,`1.2rem`]}
+                        fontsizes={[`2.5rem`,`1.5rem`]}
                         fontcolors={['#fcba03', '#5c5c5c']}
                         fontjustify={['right', 'left']}
                         >0</MileageTracker>
@@ -121,7 +147,7 @@ export default function Map(props){
                         targetRefIndex={targetRef} 
                         maxIndex={divRefs.length}
                         useKM={false}
-                        fontsizes={[`1rem`,`1rem`]}
+                        fontsizes={[`1.5rem`,`1.3rem`]}
                         fontcolors={['#fcba03', '#5c5c5c']}
                         fontjustify={['end', 'start']}
                         >0</MileageTracker>
@@ -190,8 +216,8 @@ export default function Map(props){
                             usePathMeasure={true}>
                         </AnimatedRoute>
                         <MapMarker ref={circleRef}
-                            pathRef={firstLegRef}
-                            triggerRef={firstLegDivRef}
+                            pathRef={legRefs[targetRef]}
+                            triggerRef={divRefs[targetRef]}
                             projection={projection}
                             lat={39}
                             lon={-92}>    

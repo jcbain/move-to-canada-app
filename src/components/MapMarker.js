@@ -36,14 +36,14 @@ export const MapMarker = forwardRef((props, ref) => {
     }, [props, ref])
 
     return (
-        <IconUmbrella ref={ref}
-            x={projectedLat}
-            y={projectedLon}>
-        </IconUmbrella>
-        // <circle ref={ref}
-        //         cx={projectedLat}
-        //         cy={projectedLon}
-        //         r={5}>
-        // </circle>
+        // <IconUmbrella ref={ref}
+        //     x={projectedLat}
+        //     y={projectedLon}>
+        // </IconUmbrella>
+        <circle ref={ref}
+                cx={projectedLat}
+                cy={projectedLon}
+                r={5}>
+        </circle>
     )
 })
