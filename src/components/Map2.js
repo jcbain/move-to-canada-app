@@ -7,6 +7,7 @@ import{ MapShape, AnimatedRoute } from './MapShapes';
 import { MileageTracker } from './MileageTracker';
 import { CarOccupant } from './CarOccupant';
 import { MapMarker } from './MapMarker';
+import MapContainer from './MapContainer';
 import {createProjection} from '../helpers/mapperHelpers'
 
 import canadianProvinces from '../data/canada';
@@ -62,37 +63,6 @@ const CarOccupantDiv = styled.div`
 `
 
 
-const SampleSomething = forwardRef((props, ref) => {
-    const [count, setCount] = useState(0)
-    let newCount = {count: 0}
-    
-    useEffect(() => {
-        gsap.to(newCount, {
-            scrollTrigger: { 
-                trigger: props.triggerRef.current,
-                start: "top 90%",
-                end: "top 15%",
-                scrub: true,
-                toggleActions: "restart pause reverse pause"  
-            },
-            count: 20
-        })
-    }, [props, newCount])
-
-    useEffect(() => {
-        console.log(newCount)
-    })
-
-
-    return (
-        <div ref={ref}>
-            {newCount.count}
-        </div>
-    )
-})
-
-
-
 
 
 export default function Map(props){
@@ -136,24 +106,27 @@ export default function Map(props){
     const [centerLat, setCenterLat] = useState(39)
 
 
-
+    
     // const projection = createProjection(props.width, props.height, props.scale, props.centerLong, props.centerLat);
     const projection = createProjection(props.width, props.height, props.scale, centerLong, centerLat);
     const path = geoPath().projection(projection);
-    console.log(projection([-96, 43]))
+    // console.log(projection([-96, 43]))
+    // console.log([route.features[2]])
+    const [latMove, lonMove] = projection([-96, 43])
+    let moves = [[-94, 39], [-94, 40], [-96, 43]]
 
-    useEffect(() => {
-        gsap.to(mapRef.current, {
-            scrollTrigger: { 
-                trigger: thirdLegDivRef.current,
-                start: "top 90%",
-                end: "top 15%",
-                scrub: true,
-                toggleActions: "restart pause reverse pause"  
-            },
-            attr: {viewBox: `-107 -148 500 500`}
-        })
-    }, [])
+    // useEffect(() => {
+    //     gsap.to(mapRef.current, {
+    //         scrollTrigger: { 
+    //             trigger: thirdLegDivRef.current,
+    //             start: "top 90%",
+    //             end: "top 15%",
+    //             scrub: true,
+    //             toggleActions: "restart pause reverse pause"  
+    //         },
+    //         attr: {viewBox: `-${lonMove} -${latMove} 500 500`}
+    //     })
+    // }, [latMove, lonMove])
     return (
         <div>
         
@@ -202,12 +175,20 @@ export default function Map(props){
                         fontjustify={['end', 'start']}
                         >0</MileageTracker>
                 </TrackerDiv>
-                <MapSvg ref={mapRef}
+                <MapContainer ref={mapRef}
+                    projection={projection}
+                    moveCoords={moves[targetRef]}
+                    triggerRef={divRefs[targetRef]}
+                    width={props.width}
+                    height={props.height}
+                    viewWidth={98}
+                    viewHeight={98}>
+                {/* <MapSvg ref={mapRef}
                     className={props.className}
                     viewBox={[0, 0, props.width, props.height]}
                     width={98}
                     height={98}
-                    >
+                    > */}
                         <MapShape key={'canadaprovinces'}
                             useFeatures={true}
                             className={'canadaprovinces'}
@@ -273,7 +254,8 @@ export default function Map(props){
                             lon={-92}>    
                         </MapMarker>
 
-                </MapSvg>
+                {/* </MapSvg> */}
+                </MapContainer>
 
             </MapDiv>
             <TextDiv>

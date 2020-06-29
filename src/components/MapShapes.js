@@ -28,6 +28,8 @@ export const MapShape = forwardRef((props, ref) => {
 
 export const AnimatedRoute = forwardRef((props, ref) => {
 
+    console.log(props.data[0].geometry.coordinates[-1])
+
 
     useEffect(() => {
         gsap.to(ref.current, {
