@@ -38,8 +38,8 @@ function App(props) {
           width={500}
           height={500}
           scale={scale}
-          centerLong={92}
-          centerLat={39}>
+          centerLong={92.35361}
+          centerLat={38.95133}>
       </Map>
     </div>
   )

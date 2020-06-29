@@ -13,13 +13,12 @@ const MapSvg = styled.svg`
 
 const MapContainer = forwardRef((props, ref) => {
     const [centerCoords, setCenterCoords] = useState({lat: 0, lon:0})
-    const [latMove, lonMove] = props.projection(props.moveCoords)
+    const [lonMove, latMove] = props.projection(props.moveCoords)
     const centerWidthVal = props.width/2;
     const centerHeightVal = props.height/2;
 
     const latDelta = latMove - centerWidthVal ;
     const lonDelta = lonMove - centerHeightVal ;
-
 
     useEffect(() => {
         gsap.to(ref.current, {

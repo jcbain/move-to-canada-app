@@ -18,6 +18,9 @@ import pippa from '../img/pippa.png';
 import { Button } from '@material-ui/core';
 import gsap from 'gsap/gsap-core';
 
+const legCoords = route.features.map(d => d.geometry.coordinates[0].pop())
+
+
 const MapDiv = styled.div`
     top: 0;
     position: fixed;
@@ -62,7 +65,6 @@ const CarOccupantDiv = styled.div`
     height: 15vh;
 `
 
-const legCoords = route.features.map(d => d.geometry.coordinates[0].pop())
 
 
 export default function Map(props){
@@ -224,8 +226,8 @@ export default function Map(props){
                             pathRef={legRefs[targetRef]}
                             triggerRef={divRefs[targetRef]}
                             projection={projection}
-                            lat={39}
-                            lon={-92}>    
+                            lat={props.centerLat}
+                            lon={-props.centerLong}>    
                         </MapMarker>
                 </MapContainer>
 
