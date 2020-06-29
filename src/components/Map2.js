@@ -62,7 +62,7 @@ const CarOccupantDiv = styled.div`
     height: 15vh;
 `
 
-
+const legCoords = route.features.map(d => d.geometry.coordinates[0].pop())
 
 
 export default function Map(props){
@@ -102,31 +102,11 @@ export default function Map(props){
       ]
     const [targetRef, updateRef] = useState(0);
 
-    const [centerLong, setCenterLong] = useState(92);
-    const [centerLat, setCenterLat] = useState(39)
-
-
-    
-    // const projection = createProjection(props.width, props.height, props.scale, props.centerLong, props.centerLat);
-    const projection = createProjection(props.width, props.height, props.scale, centerLong, centerLat);
+    const projection = createProjection(props.width, props.height, props.scale, props.centerLong, props.centerLat);
     const path = geoPath().projection(projection);
-    // console.log(projection([-96, 43]))
-    // console.log([route.features[2]])
-    const [latMove, lonMove] = projection([-96, 43])
-    let moves = [[-94, 39], [-94, 40], [-96, 43]]
 
-    // useEffect(() => {
-    //     gsap.to(mapRef.current, {
-    //         scrollTrigger: { 
-    //             trigger: thirdLegDivRef.current,
-    //             start: "top 90%",
-    //             end: "top 15%",
-    //             scrub: true,
-    //             toggleActions: "restart pause reverse pause"  
-    //         },
-    //         attr: {viewBox: `-${lonMove} -${latMove} 500 500`}
-    //     })
-    // }, [latMove, lonMove])
+    const tripLegCoords = [...legCoords]
+
     return (
         <div>
         
@@ -177,18 +157,12 @@ export default function Map(props){
                 </TrackerDiv>
                 <MapContainer ref={mapRef}
                     projection={projection}
-                    moveCoords={moves[targetRef]}
+                    moveCoords={tripLegCoords[targetRef]}
                     triggerRef={divRefs[targetRef]}
                     width={props.width}
                     height={props.height}
                     viewWidth={98}
                     viewHeight={98}>
-                {/* <MapSvg ref={mapRef}
-                    className={props.className}
-                    viewBox={[0, 0, props.width, props.height]}
-                    width={98}
-                    height={98}
-                    > */}
                         <MapShape key={'canadaprovinces'}
                             useFeatures={true}
                             className={'canadaprovinces'}
@@ -253,8 +227,6 @@ export default function Map(props){
                             lat={39}
                             lon={-92}>    
                         </MapMarker>
-
-                {/* </MapSvg> */}
                 </MapContainer>
 
             </MapDiv>
