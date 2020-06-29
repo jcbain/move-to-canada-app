@@ -40,7 +40,7 @@ export const AnimatedRoute = forwardRef((props, ref) => {
             },
             strokeDashoffset: `${0}`,
         });
-      }, [props.triggerRef, ref]);
+      }, [props.triggerRef.current, ref.current]);
 
       return (
         <MapShape
@@ -56,3 +56,5 @@ export const AnimatedRoute = forwardRef((props, ref) => {
         ></MapShape> 
       )
 });
+
+
