@@ -9,8 +9,6 @@ const SlidesDiv = styled.div`
     display: grid;
     grid-template-rows: 1fr .2fr;
     justify-items: center;
-    // grid-template-columns: .2fr 1fr .2fr;
-    // justify-items: center;
 `
 
 const Dot = styled.span`
@@ -35,15 +33,13 @@ export const Slide = forwardRef((props, ref) => {
                 active={i === props.activeIndex}
             >
             {s}
-                
             </ActiveDiv>
-
         )
     })
 
 
     return (
-        <div className={props.className}>
+        <div ref={ref} className={props.className}>
             {slides}
         </div>
 
@@ -80,12 +76,10 @@ export const Carousel = forwardRef((props, ref) => {
 
     return(
         <SlidesDiv ref={ref} className={props.className}>
-            {/* <div><button onClick={goToPreviousSlide}>GoBack</button></div> */}
-            <Slide activeIndex={activeIndex} slides={props.slides}></Slide>
+           <Slide activeIndex={activeIndex} slides={props.slides}></Slide>
             <DotsDiv>
-            {dots}
+                {dots}
             </DotsDiv>
-            {/* <div><button onClick={goToNextSlide}>GoForward</button></div> */}
         </SlidesDiv>
     )
 
