@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef, forwardRef, createRef} from 'react';
 import { geoPath } from 'd3-geo';
 import styled from 'styled-components';
-import TweenMax from 'gsap';
 
 import{ MapShape, AnimatedRoute } from './MapShapes';
 import { MileageTracker } from './MileageTracker';
 import { CarOccupant } from './CarOccupant';
 import { MapMarker } from './MapMarker';
+import {Carousel} from './Carousel';
 import MapContainer from './MapContainer';
 import {createProjection} from '../helpers/mapperHelpers'
 
@@ -15,6 +15,9 @@ import usStates from '../data/us-states';
 import route from '../data/to_calgary';
 import prairie from '../img/prairie.png';
 import pippa from '../img/pippa.png';
+import prairiemountain from '../img/prairie_mountains.jpeg'
+import pippamountain from '../img/pippa_mountains.jpeg'
+
 import { Button } from '@material-ui/core';
 import gsap from 'gsap/gsap-core';
 
@@ -23,46 +26,71 @@ const legCoords = route.features.map(d => d.geometry.coordinates[0].pop())
 
 const MapDiv = styled.div`
     top: 0;
-    position: fixed;
+    position: sticky;
     width: 98vw;
-    margin: 1vw;
+    margin: 0vw;
     z-index: -1;
 `
 
-const MapSvg = styled.svg`
-    width: ${props => props.width}vw;
-    height: ${props => props.height}vh;
-`;
 
+const FadeDiv = styled.div`
+position: absolute;
+top: 0vh;
+background-image: linear-gradient(rgba(255,255,255,1), 90%, rgba(255,255,255,0));
+width: 40vw;
+height: 15vh;
+    left: 60vw;
+`
 const TextDiv = styled.div`
-    width: 25vw;
+    // position: sticky;
+    // top: 10vh;
+    width: 32vw;
     padding: 2vw;
+    // background-color: #fff;
+    // border-top: 5px solid #5149c4;
+    // border-bottom: 4px solid #5149c4;
+    margin-bottom: 120vh;
+    margin-left: 62vw;
+    // box-shadow: 0 3px 3px rgba(0,0,0,0.1);
+`
+
+
+
+const ImgWrapper = styled.img`
+    box-shadow: 0 4px 4px rgba(0,0,0,0.1);
 `
 
 const TrackerDiv = styled.div`
     position: absolute;
-    left: 77vw;
+    top: 82vh;
     width: 20vw;
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
+    // background-color: #fff;
+    // border: 1vw solid #5149c4;
+    // border-radius: 4px;
     padding-left: 1vw;
     height: 15vh;
 `
 
 const CarOccupantDiv = styled.div`
     position: absolute;
-    left: 30.5vw;
-    width: 45vw;
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
+    // left: 30.5vw;
+    width: 60vw;
+    // background-color: #fff;
+    // border: 1vw solid #5149c4;
+    // border-radius: 2px;
     padding-left: 1vw;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
     justify-items: center;
     height: 15vh;
+    background-image: linear-gradient(rgba(255,255,255,1), 90%, rgba(255,255,255,0))
+`
+
+const StyledCarousel = styled(Carousel)`
+    width: 30vw;
+    margin-left: 65vw;
+    margin-bottom: 100vh;
 `
 
 
@@ -71,12 +99,6 @@ export default function Map(props){
 
     let mainDistanceRef = useRef(null);
     let secondaryDistanceRef = useRef(null)
-    // let firstLegDivRef = useRef(null);
-    // let firstLegRef = useRef(null);
-    // let secondLegDivRef = useRef(null);
-    // let secondLegRef = useRef(null);
-    // let thirdLegDivRef = useRef(null);
-    // let thirdLegRef = useRef(null);
     let prairieRef = useRef(null);
     let pippaRef = useRef(null);
     let jenRef = useRef(null);
@@ -86,9 +108,6 @@ export default function Map(props){
     const routeRefs = route.features.map(() => createRef(null));
     const divRefs = route.features.map(() => createRef(null));
 
-    // const divRefs = [firstLegDivRef, secondLegDivRef, thirdLegDivRef];
-    // const legRefs = [routeRefs[0], secondLegRef, thirdLegRef];
-    // console.log(legRefs)
     const distances = [
         218.7226151394528,
         260.74039076795617,
@@ -140,20 +159,19 @@ export default function Map(props){
             <MapDiv>
 
                 <CarOccupantDiv>
-
-                    <CarOccupant ref={prairieRef} triggerRef={divRefs[1]} imgpath={prairie}
+                    <CarOccupant ref={jenRef} triggerRef={divRefs[0]} imgpath={prairie}
                         imgwidth={10}
                         imgheight={12}
                     ></CarOccupant>
-                    <CarOccupant ref={pippaRef} triggerRef={divRefs[0]} imgpath={pippa}
+                    <CarOccupant ref={jamesRef} triggerRef={divRefs[1]} imgpath={pippa}
                         imgwidth={10}
                         imgheight={12}
                     ></CarOccupant>
-                    <CarOccupant ref={jenRef} triggerRef={divRefs[1]} imgpath={prairie}
+                    <CarOccupant ref={prairieRef} triggerRef={divRefs[13]} imgpath={prairie}
                         imgwidth={10}
                         imgheight={12}
                     ></CarOccupant>
-                    <CarOccupant ref={jamesRef} triggerRef={divRefs[0]} imgpath={pippa}
+                    <CarOccupant ref={pippaRef} triggerRef={divRefs[13]} imgpath={pippa}
                         imgwidth={10}
                         imgheight={12}
                     ></CarOccupant>
@@ -182,14 +200,15 @@ export default function Map(props){
                         fontjustify={['end', 'start']}
                         >0</MileageTracker>
                 </TrackerDiv>
+                <FadeDiv>hello</FadeDiv>
                 <MapContainer ref={mapRef}
                     projection={projection}
                     moveCoords={tripLegCoords[targetRef]}
                     triggerRef={divRefs[targetRef]}
                     width={props.width}
                     height={props.height}
-                    viewWidth={98}
-                    viewHeight={98}>
+                    viewWidth={60}
+                    viewHeight={100}>
                         <MapShape key={'canadaprovinces'}
                             useFeatures={true}
                             className={'canadaprovinces'}
@@ -208,46 +227,9 @@ export default function Map(props){
                             strokeWidth={'0.25px'}
                             fill={'#fff'}>
                         </MapShape>
+
                         {animatedRoutes}
-                        {/* <AnimatedRoute 
-                            key={'route-1'}
-                            ref={routeRefs[0]}
-                            triggerRef={firstLegDivRef}
-                            useFeatures={false}
-                            className={'route'}
-                            data={[route.features[0]]}
-                            path={path}
-                            stroke={'#000'}
-                            strokeWidth={'2px'}
-                            fill={'none'}
-                            usePathMeasure={true}>
-                        </AnimatedRoute>
-                        <AnimatedRoute 
-                            key={'route-2'}
-                            ref={routeRefs[1]}
-                            triggerRef={secondLegDivRef}
-                            useFeatures={false}
-                            className={'route'}
-                            data={[route.features[1]]}
-                            path={path}
-                            stroke={'#000'}
-                            strokeWidth={'2px'}
-                            fill={'none'}
-                            usePathMeasure={true}>
-                        </AnimatedRoute>
-                        <AnimatedRoute 
-                            key={'route-3'}
-                            ref={routeRefs[2]}
-                            triggerRef={thirdLegDivRef}
-                            useFeatures={false}
-                            className={'route'}
-                            data={[route.features[2]]}
-                            path={path}
-                            stroke={'#000'}
-                            strokeWidth={'2px'}
-                            fill={'none'}
-                            usePathMeasure={true}>
-                        </AnimatedRoute> */}
+    
                         <MapMarker ref={circleRef}
                             pathRef={routeRefs[targetRef]}
                             triggerRef={divRefs[targetRef]}
@@ -258,11 +240,14 @@ export default function Map(props){
                 </MapContainer>
 
             </MapDiv>
+
             <TextDiv>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam quam nulla porttitor massa id neque aliquam vestibulum. Sit amet cursus sit amet. Urna et pharetra pharetra massa massa. Mattis molestie a iaculis at erat pellentesque. A pellentesque sit amet porttitor eget. Proin sagittis nisl rhoncus mattis rhoncus. Quam quisque id diam vel quam. Natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Erat pellentesque adipiscing commodo elit at. Elementum tempus egestas sed sed risus pretium quam vulputate. Nunc sed velit dignissim sodales.
                 Ut eu sem integer vitae justo eget. Natoque penatibus et magnis dis. Felis bibendum ut tristique et. Gravida neque convallis a cras semper. Porttitor massa id neque aliquam. Amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Orci porta non pulvinar neque. Est ullamcorper eget nulla facilisi etiam dignissim diam quis enim. Est placerat in egestas erat. Iaculis nunc sed augue lacus viverra vitae. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Quam adipiscing vitae proin sagittis nisl rhoncus mattis. Ornare arcu dui vivamus arcu felis bibendum ut. Vulputate ut pharetra sit amet. Diam maecenas sed enim ut. A diam sollicitudin tempor id eu. Malesuada nunc vel risus commodo viverra maecenas accumsan.
                 Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
             </TextDiv>
+            <StyledCarousel className="firstcarousel" slides={[<ImgWrapper width={'100%'} src={prairiemountain}></ImgWrapper>,<ImgWrapper width={'100%'} src={pippamountain}></ImgWrapper>]}></StyledCarousel>
+   
             <TextDiv ref={divRefs[0]}>
            
 
@@ -270,6 +255,14 @@ export default function Map(props){
                 Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
                 Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
 
+            </TextDiv>
+ 
+
+            <TextDiv>
+                ...and so Jennifer set off from Columbia, MO, our home of 10ish years to where we grew up in Kansas City, MO. This was the end of a chapter, perhaps even a book and a new one was about to begin. We had thousands of miles ahead of us, three border crossings, 
+                nearly half of the states in the US and a handful of provinces yet ahead.
+                Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
+                Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
             </TextDiv>
             <TextDiv ref={divRefs[1]}>
                 ...and so Jennifer set off from Columbia, MO, our home of 10ish years to where we grew up in Kansas City, MO. This was the end of a chapter, perhaps even a book and a new one was about to begin. We had thousands of miles ahead of us, three border crossings, 
@@ -339,6 +332,7 @@ export default function Map(props){
                 Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
                 Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
             </TextDiv>
+
             <TextDiv ref={divRefs[11]}>
                 ...and so Jennifer set off from Columbia, MO, our home of 10ish years to where we grew up in Kansas City, MO. This was the end of a chapter, perhaps even a book and a new one was about to begin. We had thousands of miles ahead of us, three border crossings, 
                 nearly half of the states in the US and a handful of provinces yet ahead.

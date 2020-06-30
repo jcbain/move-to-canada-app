@@ -33,7 +33,7 @@ export const CarOccupant = forwardRef((props, ref) => {
               opacity: `${1}`,
               duration: 0.5,
         });
-    }, [props.triggerRef, ref])
+    }, [props.triggerRef.current, ref.current])
 
 
     return(
