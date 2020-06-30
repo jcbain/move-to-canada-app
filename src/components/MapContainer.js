@@ -9,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 const MapSvg = styled.svg`
     width: ${props => props.viewwidth}vw;
     height: ${props => props.viewheight}vh;
+    transform: scale(${props => props.zoomscale})
 `;
 
 const MapContainer = forwardRef((props, ref) => {
@@ -16,6 +17,7 @@ const MapContainer = forwardRef((props, ref) => {
     const [lonMove, latMove] = props.projection(props.moveCoords)
     const centerWidthVal = props.width/2;
     const centerHeightVal = props.height/2;
+    const [zoomScale, setZoomScale] = useState(2);
 
     const latDelta = latMove - centerWidthVal ;
     const lonDelta = lonMove - centerHeightVal ;
@@ -33,6 +35,18 @@ const MapContainer = forwardRef((props, ref) => {
             attr: {viewBox: `${lonDelta} ${latDelta} ${props.width} ${props.height}`}
         })
     }, [latDelta, lonDelta, props.height, props.width, props.triggerRef, ref])
+
+    useEffect(() => {
+        gsap.to(ref.current, {
+            scrollTrigger: {
+                trigger: props.zoomRef.current,
+                start: "top 90%",
+                end: "top 15%",
+                toggleActions: "restart play reverse pause"
+            },
+            scale: zoomScale
+        })
+    }, [zoomScale, ref.current, props.zoomRef])
 
     return (
         <MapSvg ref={ref} 

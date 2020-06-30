@@ -66,6 +66,7 @@ const TrackerDiv = styled.div`
     width: 20vw;
     padding-left: 1vw;
     height: 15vh;
+    z-index: 1000;
 `
 
 const CarOccupantDiv = styled.div`
@@ -77,6 +78,7 @@ const CarOccupantDiv = styled.div`
     align-items: center;
     justify-items: center;
     height: 15vh;
+    z-index: 1000;
     background-image: linear-gradient(rgba(255,255,255,1), 90%, rgba(255,255,255,0))
 `
 
@@ -87,6 +89,7 @@ const StyledCarousel = styled(Carousel)`
 const ScrollItemsDiv = styled.div`
     width: ${props => props.viewwidth}vw;
     position: relative;
+    background-color: #fff;
 `
 
 
@@ -200,6 +203,7 @@ export default function Map(props){
                     projection={projection}
                     moveCoords={tripLegCoords[targetRef]}
                     triggerRef={divRefs[targetRef]}
+                    zoomRef={divRefs[0]}
                     width={props.width}
                     height={props.height}
                     viewWidth={60}

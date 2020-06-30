@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 
 
 function App(props) {
-  const [scale, setScale] = useState(4);
+  const [scale, setScale] = useState(2);
 
   // const zoomInScale = () => {
   //   setScale(scale + 1);
@@ -31,14 +31,6 @@ function App(props) {
           <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet" /> 
           <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet" />         
         </Helmet>
-      {/* <div className="update-buttons">
-        <Button variant="outlined" onClick={zoomInScale}>Zoom In</Button>
-        <Button variant="outlined" onClick={zoomOutScale}>Zoom Out</Button>
-           <p>Scale {scale}</p>
-      </div> */}
-      <div>
-        jfljds fajdflajsd fksdjf ljsd flkjasd fljasldjf asldjf lasjd flkjasd lfj asdljf laskdj flajsd lfjas dlkfj lasjdf lasjd fljsad lfjas ldfj alsdjf alsdjf lajsd flfjas dlfja sdljf alskdjf lasjdfljaskdljflasjd flkjasd lfkja sldjf alksdj f
-      </div>
       <Map className="map"
           width={500}
           height={500}
