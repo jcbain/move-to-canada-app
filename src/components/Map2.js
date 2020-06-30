@@ -23,26 +23,30 @@ import gsap from 'gsap/gsap-core';
 
 const legCoords = route.features.map(d => d.geometry.coordinates[0].pop())
 
+const ContainerDiv = styled.div`
+    // top: 0;
+    display: flex;
+
+`
 
 const MapDiv = styled.div`
     top: 0;
     position: sticky;
-    width: 98vw;
+    width: 60vw;
+    height: 100vh;
     margin: 0vw;
     z-index: -1;
 `
 
 
 const TextDiv = styled.div`
-    // position: sticky;
-    // top: 10vh;
     width: 32vw;
     padding: 2vw;
     // background-color: #fff;
     // border-top: 5px solid #5149c4;
     // border-bottom: 4px solid #5149c4;
     margin-bottom: 120vh;
-    margin-left: 62vw;
+    // margin-left: 62vw;
     // box-shadow: 0 3px 3px rgba(0,0,0,0.1);
     font-family: 'Crete Round', serif;
     font-size: 1.2rem;
@@ -60,20 +64,13 @@ const TrackerDiv = styled.div`
     position: absolute;
     top: 82vh;
     width: 20vw;
-    // background-color: #fff;
-    // border: 1vw solid #5149c4;
-    // border-radius: 4px;
     padding-left: 1vw;
     height: 15vh;
 `
 
 const CarOccupantDiv = styled.div`
     position: absolute;
-    // left: 30.5vw;
     width: 60vw;
-    // background-color: #fff;
-    // border: 1vw solid #5149c4;
-    // border-radius: 2px;
     padding-left: 1vw;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -85,8 +82,13 @@ const CarOccupantDiv = styled.div`
 
 const StyledCarousel = styled(Carousel)`
     width: 32vw;
-    margin-left: 65vw;
+    // margin-left: 65vw;
     margin-bottom: 100vh;
+`
+
+const ScrollDiv = styled.div`
+    width: 35vw;
+    position: relative;
 `
 
 
@@ -150,10 +152,10 @@ export default function Map(props){
     })
 
     return (
-        <div>
+        <ContainerDiv>
+                        
         
             <MapDiv>
-
                 <CarOccupantDiv>
                     <CarOccupant ref={jenRef} triggerRef={divRefs[0]} imgpath={prairie}
                         imgwidth={10}
@@ -196,6 +198,7 @@ export default function Map(props){
                         fontjustify={['end', 'start']}
                         >0</MileageTracker>
                 </TrackerDiv>
+      
                 <MapContainer ref={mapRef}
                     projection={projection}
                     moveCoords={tripLegCoords[targetRef]}
@@ -235,12 +238,13 @@ export default function Map(props){
                 </MapContainer>
 
             </MapDiv>
-
+            <ScrollDiv>
             <TextDiv>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam quam nulla porttitor massa id neque aliquam vestibulum. Sit amet cursus sit amet. Urna et pharetra pharetra massa massa. Mattis molestie a iaculis at erat pellentesque. A pellentesque sit amet porttitor eget. Proin sagittis nisl rhoncus mattis rhoncus. Quam quisque id diam vel quam. Natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Erat pellentesque adipiscing commodo elit at. Elementum tempus egestas sed sed risus pretium quam vulputate. Nunc sed velit dignissim sodales.
                 Ut eu sem integer vitae justo eget. Natoque penatibus et magnis dis. Felis bibendum ut tristique et. Gravida neque convallis a cras semper. Porttitor massa id neque aliquam. Amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Orci porta non pulvinar neque. Est ullamcorper eget nulla facilisi etiam dignissim diam quis enim. Est placerat in egestas erat. Iaculis nunc sed augue lacus viverra vitae. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Quam adipiscing vitae proin sagittis nisl rhoncus mattis. Ornare arcu dui vivamus arcu felis bibendum ut. Vulputate ut pharetra sit amet. Diam maecenas sed enim ut. A diam sollicitudin tempor id eu. Malesuada nunc vel risus commodo viverra maecenas accumsan.
                 Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
             </TextDiv>
+
             <StyledCarousel className="firstcarousel" slides={[<ImgWrapper width={'100%'} src={prairiemountain}></ImgWrapper>,<ImgWrapper width={'100%'} src={pippamountain}></ImgWrapper>]}></StyledCarousel>
    
             <TextDiv ref={divRefs[0]}>
@@ -348,8 +352,9 @@ export default function Map(props){
                 Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
                 Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
             </TextDiv>
+            </ScrollDiv>
 
-        </div>
+        </ContainerDiv>
 
     )
 
