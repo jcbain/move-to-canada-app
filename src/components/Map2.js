@@ -8,11 +8,14 @@ import { CarOccupant } from './CarOccupant';
 import { MapMarker } from './MapMarker';
 import {Carousel} from './Carousel';
 import MapContainer from './MapContainer';
-import {createProjection} from '../helpers/mapperHelpers'
+import {createProjection, getDistanceOfPath} from '../helpers/mapperHelpers'
 
 import canadianProvinces from '../data/canada';
 import usStates from '../data/us-states';
 import route from '../data/to_calgary';
+import route2 from '../data/calgary_to_kc';
+import route3 from '../data/kc_to_kc';
+import route4 from '../data/kc_back_calgary';
 import prairie from '../img/prairie.png';
 import pippa from '../img/pippa.png';
 import prairiemountain from '../img/prairie_mountains.jpeg'
@@ -29,6 +32,7 @@ const MapItemsDiv = styled.div`
 const MapDiv = styled.div`
     top: 0;
     position: sticky;
+    overflow: hidden;
     width: ${props => props.viewwidth}vw;
     height: 100vh;
     margin: 0vw;
@@ -40,7 +44,7 @@ const ScrollSectionDiv = styled.div`
     position: ${props => props.issticky ? 'sticky' : 'static'};
     top: ${props => props.issticky ? 0 : ''};
     width: ${props => props.viewwidth - (props.xmargin * 2) || props.viewwidth - 10 - 6}vw;
-    background: ${props => props.issticky ? 'linear-gradient(rgba(255,255,255,1), rgba(255,255,255,0))' : ''};
+    background: ${props => props.issticky ? 'linear-gradient(rgba(255,255,255,1), 80%, rgba(255,255,255,0))' : ''};
     height: ${props => props.viewheight || ''};
     margin-left: ${props => props.xmargin || 5}vw;
     margin-right: ${props => props.xmargin || 5}vw;
@@ -51,7 +55,7 @@ const ScrollSectionDiv = styled.div`
     background-color: ${props => props.backgroundcolor || '#fff'};
     border-radius: ${props => props.issticky ? '0px' : '4px'};
     padding-left: ${props => props.paddingleft || 2}vw;
-    padding-right: 4vw;
+    padding-right: ${props => props.paddingleft || 4}vw;
     padding-top: 1vh;
     padding-bottom: 1vh;
     margin-top: 2vh;
@@ -132,7 +136,7 @@ export default function Map(props){
     let mapRef = useRef(null)
     const routeRefs = route.features.map(() => createRef(null));
     const divRefs = route.features.map(() => createRef(null));
-
+    const maxLength = route.features.length;
     const distances = [
         218.7226151394528,
         260.74039076795617,
@@ -147,12 +151,30 @@ export default function Map(props){
         2083.16171177172,
         2303.2549984271054,
         2628.794201250399,
-        2945.533219336934
+        2945.533219336934,
+        3200.396905856729,
+        3283.32271602244,
+        3543.5835693393865,
+        3878.1873067914653,
+        4003.4709047560063,
+        4094.2300509358365,
+        4209.475897938265,
+        4252.153416279632,
+        4612.297061105043,
+        5027.459739701704,
+        5036.276318461983,
+        5082.492822421188,
+        5279.57781138158,
+        5421.023742702225,
+        6207.373075786453,
+        6650.4010590161,
+        7345.7787158131605, 8124.508479849123, 8772.325909470586, 10127.363744576593, 10563.188138459751, 11093.383923592719, 11660.246386956627, 11935.737077500497, 12112.534033632728, 12622.754235322662
       ]
-    const [targetRef, updateRef] = useState(0);
-
-
-
+    const [targetRef, setTargetRef] = useState(0);
+    const updateIndexRef = (newIndex) => {
+        const updatedIndex = newIndex < maxLength -1 ? newIndex : maxLength -1;
+        setTargetRef(updatedIndex)
+    }
 
     const projection = createProjection(props.width, props.height, props.scale, props.centerLong, props.centerLat);
     const path = geoPath().projection(projection);
@@ -203,7 +225,7 @@ export default function Map(props){
                     <MileageTracker ref={mainDistanceRef} 
                         triggerRef={divRefs[targetRef]} 
                         updatedDistance={distances[targetRef]} 
-                        switchRef={updateRef} 
+                        switchRef={updateIndexRef} 
                         targetRefIndex={targetRef} 
                         maxIndex={divRefs.length}
                         useKM={true}
@@ -214,7 +236,7 @@ export default function Map(props){
                     <MileageTracker ref={secondaryDistanceRef} 
                         triggerRef={divRefs[targetRef]} 
                         updatedDistance={distances[targetRef]} 
-                        switchRef={updateRef} 
+                        switchRef={updateIndexRef} 
                         targetRefIndex={targetRef} 
                         maxIndex={divRefs.length}
                         useKM={false}
@@ -225,6 +247,8 @@ export default function Map(props){
                 </TrackerDiv>
       
                 <MapContainer ref={mapRef}
+                    maxIndex={14}
+                    currentIndex={targetRef}
                     projection={projection}
                     moveCoords={tripLegCoords[targetRef]}
                     triggerRef={divRefs[targetRef]}
@@ -281,8 +305,8 @@ export default function Map(props){
                     This was our home for pretty much all of our adult life.
                 </ScrollSectionDiv>
 
-                <ScrollSectionDiv viewwidth={scrollyDivWidth} xmargin={4}>
-                    <StyledCarousel className="firstcarousel" slides={[<ImgWrapper width={'100%'} src={prairiemountain}></ImgWrapper>,<ImgWrapper width={'100%'} src={pippamountain}></ImgWrapper>]}></StyledCarousel>
+                <ScrollSectionDiv viewwidth={scrollyDivWidth} xmargin={7} paddingleft={'0'} paddingright={'0'}>
+                    <StyledCarousel className="firstcarousel" slides={[<ImgWrapper width={'100%'} src={prairiemountain}></ImgWrapper>,<ImgWrapper width={'100%'} src={pippamountain}></ImgWrapper>, <ImgWrapper width={'100%'} src={pippamountain}></ImgWrapper>]}></StyledCarousel>
                 </ScrollSectionDiv>
                 <ScrollSectionDiv ref={divRefs[0]} viewwidth={scrollyDivWidth}>
             

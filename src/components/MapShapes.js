@@ -1,6 +1,9 @@
 import React, {forwardRef, useEffect} from 'react';
 import gsap from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
+import {geoDistance} from 'd3-geo';
+
+import {getDistanceInMiles} from '../helpers/mapperHelpers'
 gsap.registerPlugin(ScrollTrigger);
 
 

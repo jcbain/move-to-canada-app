@@ -41,7 +41,6 @@ export const UnitLabel = (props) => {
 export const MileageTracker = forwardRef((props, ref) => {
     const distanceIndex = props.targetRefIndex < props.maxIndex ? props.targetRefIndex + 1 : props.targetRefIndex;
     const updatedDistance = props.useKM ? props.updatedDistance : props.updatedDistance * 0.62137119
-
     useEffect(() => {
         gsap.to(ref.current, {
             scrollTrigger:{ 
