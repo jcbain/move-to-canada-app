@@ -27,7 +27,8 @@ function App(props) {
       <Helmet>               
         <meta charSet="utf-8" />
           <title>Journey to Canada</title>
-          <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet" /> 
+          <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Crete+Round&display=swap" rel="stylesheet" />  
       </Helmet>
       {/* <div className="update-buttons">
         <Button variant="outlined" onClick={zoomInScale}>Zoom In</Button>

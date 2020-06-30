@@ -33,14 +33,6 @@ const MapDiv = styled.div`
 `
 
 
-const FadeDiv = styled.div`
-position: absolute;
-top: 0vh;
-background-image: linear-gradient(rgba(255,255,255,1), 90%, rgba(255,255,255,0));
-width: 40vw;
-height: 15vh;
-    left: 60vw;
-`
 const TextDiv = styled.div`
     // position: sticky;
     // top: 10vh;
@@ -52,12 +44,16 @@ const TextDiv = styled.div`
     margin-bottom: 120vh;
     margin-left: 62vw;
     // box-shadow: 0 3px 3px rgba(0,0,0,0.1);
+    font-family: 'Crete Round', serif;
+    font-size: 1.2rem;
+    color: #5c5c5c;
 `
 
 
 
 const ImgWrapper = styled.img`
-    box-shadow: 0 4px 4px rgba(0,0,0,0.1);
+    // box-shadow: 0 4px 4px rgba(0,0,0,0.1);
+
 `
 
 const TrackerDiv = styled.div`
@@ -88,7 +84,7 @@ const CarOccupantDiv = styled.div`
 `
 
 const StyledCarousel = styled(Carousel)`
-    width: 30vw;
+    width: 32vw;
     margin-left: 65vw;
     margin-bottom: 100vh;
 `
@@ -200,7 +196,6 @@ export default function Map(props){
                         fontjustify={['end', 'start']}
                         >0</MileageTracker>
                 </TrackerDiv>
-                <FadeDiv>hello</FadeDiv>
                 <MapContainer ref={mapRef}
                     projection={projection}
                     moveCoords={tripLegCoords[targetRef]}
