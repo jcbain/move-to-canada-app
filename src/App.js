@@ -29,7 +29,12 @@ function App(props) {
           <title>Journey to Canada</title>
           <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet" /> 
-          <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet" />         
+          <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet" />  
+          <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" /> 
+          <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet" /> 
+          <link href="https://fonts.googleapis.com/css2?family=Patua+One&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet" />  
+          <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap" rel="stylesheet" />       
         </Helmet>
       <Map className="map"
           width={500}

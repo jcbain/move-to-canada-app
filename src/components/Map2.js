@@ -37,14 +37,24 @@ const MapDiv = styled.div`
 
 
 const ScrollSectionDiv = styled.div`
-    width: ${props => props.viewwidth - (props.xmargin * 2) || props.viewwidth - 10}vw;
+    position: ${props => props.issticky ? 'sticky' : 'static'};
+    top: ${props => props.issticky ? 0 : ''};
+    width: ${props => props.viewwidth - (props.xmargin * 2) || props.viewwidth - 10 - 6}vw;
+    background: ${props => props.issticky ? 'linear-gradient(rgba(255,255,255,1), rgba(255,255,255,0))' : ''};
+    height: ${props => props.viewheight || ''};
     margin-left: ${props => props.xmargin || 5}vw;
     margin-right: ${props => props.xmargin || 5}vw;
-    margin-bottom: 120vh;
-    font-family: 'Quicksand', sans-serif;
+    margin-bottom: ${props => props.marginbottom || 120}vh;
+    font-family: 'Roboto Slab', serif;
     font-size: 1.2rem;
     color: #5c5c5c;
- 
+    background-color: ${props => props.backgroundcolor || '#fff'};
+    border-radius: ${props => props.issticky ? '0px' : '4px'};
+    padding-left: ${props => props.paddingleft || 2}vw;
+    padding-right: 4vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    margin-top: 2vh;
 `
 
 
@@ -54,19 +64,33 @@ const ImgWrapper = styled.img`
 
 `
 
-const StyledH1 = styled.h1`
+const Headline = styled.h1`
+    font-size: 3rem;
+    font-family: 'Abril Fatface', cursive;
+    color: ${props => props.fontcolor ||'#fcba03'};
+`
+
+const SubTitle = styled.h2`
     font-size: 2rem;
-    font-family: 'Lobster', cursive;
-    color: #fcba03;
+    font-family: 'Abril Fatface', cursive;
+    color: ${props => props.fontcolor || '#6e6e6e'};
+`
+
+const StyledHr = styled.hr`
+    border: 1px solid #fff;
+    height: 1vh;
+    background-color: #fff;
 `
 
 const TrackerDiv = styled.div`
     position: absolute;
-    top: 82vh;
-    width: 20vw;
+    left: ${props => props.leftposition - props.viewwidth}vw;
+    top: 85vh;
+    width: ${props => props.viewwidth}vw;
     padding-left: 1vw;
     height: 15vh;
     z-index: 1000;
+    background-image: linear-gradient(rgba(255,255,255,0), 10%, rgba(255,255,255,1))
 `
 
 const CarOccupantDiv = styled.div`
@@ -98,6 +122,7 @@ export default function Map(props){
     const mapDivWidth = 60;
     const scrollyDivWidth = 100 - mapDivWidth;
     let mainDistanceRef = useRef(null);
+    let columbiaDivRef = useRef(null);
     let secondaryDistanceRef = useRef(null)
     let prairieRef = useRef(null);
     let pippaRef = useRef(null);
@@ -144,7 +169,7 @@ export default function Map(props){
             className={'route'}
             data={[d]}
             path={path}
-            stroke={'#000'}
+            stroke={'#ff774a'}
             strokeWidth={'2px'}
             fill={'none'}
             usePathMeasure={true}>
@@ -174,7 +199,7 @@ export default function Map(props){
                         imgheight={12}
                     ></CarOccupant>
                 </CarOccupantDiv>
-                <TrackerDiv>
+                <TrackerDiv viewwidth={20} leftposition={mapDivWidth}>
                     <MileageTracker ref={mainDistanceRef} 
                         triggerRef={divRefs[targetRef]} 
                         updatedDistance={distances[targetRef]} 
@@ -203,7 +228,7 @@ export default function Map(props){
                     projection={projection}
                     moveCoords={tripLegCoords[targetRef]}
                     triggerRef={divRefs[targetRef]}
-                    zoomRef={divRefs[0]}
+                    zoomRef={columbiaDivRef}
                     width={props.width}
                     height={props.height}
                     viewWidth={60}
@@ -240,11 +265,20 @@ export default function Map(props){
 
             </MapDiv>
             <ScrollItemsDiv viewwidth={scrollyDivWidth}>
-                <ScrollSectionDiv viewwidth={scrollyDivWidth}>
-                    <StyledH1>Columbia, MO</StyledH1>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam quam nulla porttitor massa id neque aliquam vestibulum. Sit amet cursus sit amet. Urna et pharetra pharetra massa massa. Mattis molestie a iaculis at erat pellentesque. A pellentesque sit amet porttitor eget. Proin sagittis nisl rhoncus mattis rhoncus. Quam quisque id diam vel quam. Natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Erat pellentesque adipiscing commodo elit at. Elementum tempus egestas sed sed risus pretium quam vulputate. Nunc sed velit dignissim sodales.
-                    Ut eu sem integer vitae justo eget. Natoque penatibus et magnis dis. Felis bibendum ut tristique et. Gravida neque convallis a cras semper. Porttitor massa id neque aliquam. Amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Orci porta non pulvinar neque. Est ullamcorper eget nulla facilisi etiam dignissim diam quis enim. Est placerat in egestas erat. Iaculis nunc sed augue lacus viverra vitae. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Quam adipiscing vitae proin sagittis nisl rhoncus mattis. Ornare arcu dui vivamus arcu felis bibendum ut. Vulputate ut pharetra sit amet. Diam maecenas sed enim ut. A diam sollicitudin tempor id eu. Malesuada nunc vel risus commodo viverra maecenas accumsan.
-                    Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
+                <ScrollSectionDiv issticky={true} viewwidth={scrollyDivWidth} viewheight={'15vh'} xmargin={'0'} marginbottom={5} backgroundcolor={' '}></ScrollSectionDiv>
+                <ScrollSectionDiv paddingleft={1} marginbottom={20} viewwidth={scrollyDivWidth}>
+                    ...had we ever been to Calgary? No. Had Jennifer ever been to Canada? No. But these were mere baby concerns, nay!, adventure opportunities, particularly when faced with the state of the US in 2019. Woof, are we glad we made abroad before 2020!
+                </ScrollSectionDiv>
+                <ScrollSectionDiv ref={columbiaDivRef}
+                     marginbottom={10} 
+                     viewwidth={scrollyDivWidth} 
+                     backgroundcolor={'#2a00a6'}>
+                    <Headline fontcolor={"#fff"}>Columbia, Missouri</Headline>
+                    <StyledHr></StyledHr>
+                    <SubTitle fontcolor={"#fff"}>It all started here...</SubTitle>
+                </ScrollSectionDiv>
+                <ScrollSectionDiv paddingleft={1} marginbottom={20} viewwidth={scrollyDivWidth}>
+                    This was our home for pretty much all of our adult life.
                 </ScrollSectionDiv>
 
                 <ScrollSectionDiv viewwidth={scrollyDivWidth} xmargin={4}>

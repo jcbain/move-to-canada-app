@@ -40,13 +40,14 @@ const MapContainer = forwardRef((props, ref) => {
         gsap.to(ref.current, {
             scrollTrigger: {
                 trigger: props.zoomRef.current,
-                start: "top 90%",
-                end: "top 15%",
+                start: "top 35%",
+                end: "top 10%",
+                markers: true,
                 toggleActions: "restart play reverse pause"
             },
             scale: zoomScale
         })
-    }, [zoomScale, ref.current, props.zoomRef])
+    }, [zoomScale, ref, props.zoomRef])
 
     return (
         <MapSvg ref={ref} 

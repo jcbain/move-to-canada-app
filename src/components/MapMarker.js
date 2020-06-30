@@ -42,7 +42,8 @@ export const MapMarker = forwardRef((props, ref) => {
         <circle ref={ref}
                 cx={projectedLat}
                 cy={projectedLon}
-                r={5}>
+                r={5}
+                fill={'#ff774a'}>
         </circle>
     )
 })
