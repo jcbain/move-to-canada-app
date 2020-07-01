@@ -30,10 +30,10 @@ const CarOccupantImageDiv = styled.div`
 `
 
 const CarOccupantsContainer = styled.div`
+    font-family: 'Itim', cursive;
     display: grid;
-    grid-template-rows: 20% 80%;
-    align-items: start;
-
+    grid-template-rows: 50% 50%;
+    color: #5c5c5c;
 `
 
 export const CarOccupant = forwardRef((props, ref) => {
@@ -89,6 +89,7 @@ export const CarOccupants = (props) => {
 
     return (
         <CarOccupantsContainer>
+            <p>Car Occupants</p>
             <CarOccupantImageDiv>
                 {occupants}
             </CarOccupantImageDiv>

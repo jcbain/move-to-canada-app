@@ -5,7 +5,7 @@ import {flattenDepth} from 'lodash';
 
 import{ MapShape, AnimatedRoute } from './MapShapes';
 import { MileageTracker } from './MileageTracker';
-import { CarOccupant, CarOccupants } from './CarOccupant';
+import { CarOccupants } from './CarOccupant';
 import { MapMarker } from './MapMarker';
 import {Carousel} from './Carousel';
 import MapContainer from './MapContainer';
@@ -17,8 +17,6 @@ import route from '../data/to_calgary';
 import route2 from '../data/calgary_to_kc';
 import route3 from '../data/kc_to_kc';
 import route4 from '../data/kc_back_calgary';
-import prairie from '../img/prairie.png';
-import pippa from '../img/pippa.png';
 import prairiemountain from '../img/prairie_mountains.jpeg'
 import pippamountain from '../img/pippa_mountains.jpeg'
 
@@ -88,7 +86,7 @@ const SubTitle = styled.h2`
 const StyledHr = styled.hr`
     border: 1px solid #fff;
     height: 1vh;
-    background-color: #fff;
+    background-color: ${props => props.backgroundcolor || '#fff'};
 `
 
 const TrackerDiv = styled.div`
@@ -109,6 +107,7 @@ const WidgetsDiv = styled.div`
     display: grid;
     grid-template-columns: .75fr 1fr;
     position: absolute;
+    align-items: center;
     top: 0vh;
     z-index: 1000;
     padding-left: 1vw;
@@ -353,6 +352,18 @@ export default function Map(props){
                 </ScrollSectionDiv>
                 <ScrollSectionDiv paddingleft={1} marginbottom={20} viewwidth={scrollyDivWidth}>
                     This was our home for pretty much all of our adult life.
+                </ScrollSectionDiv>
+                <ScrollSectionDiv
+                     marginbottom={10} 
+                     viewwidth={scrollyDivWidth} 
+                     backgroundcolor={'#fff'}>
+                    <Headline fontcolor={'#404040'}>Glacier National Park</Headline>
+                    <StyledHr backgroundcolor={'#404040'}></StyledHr>
+                    <SubTitle fontcolor={'#404040'}>crown of the continent</SubTitle>
+                </ScrollSectionDiv>
+
+                <ScrollSectionDiv viewwidth={scrollyDivWidth}>
+                    "Crown of the Continent". What does that even mean? Did you forget about the entire country sitting just to your North?
                 </ScrollSectionDiv>
 
                 <ScrollSectionDiv viewwidth={scrollyDivWidth} xmargin={7} paddingleft={'0'} paddingright={'0'}>
