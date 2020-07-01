@@ -5,7 +5,7 @@ import {flattenDepth} from 'lodash';
 
 import{ MapShape, AnimatedRoute } from './MapShapes';
 import { MileageTracker } from './MileageTracker';
-import { CarOccupant } from './CarOccupant';
+import { CarOccupant, CarOccupants } from './CarOccupant';
 import { MapMarker } from './MapMarker';
 import {Carousel} from './Carousel';
 import MapContainer from './MapContainer';
@@ -92,27 +92,7 @@ const StyledHr = styled.hr`
 `
 
 const TrackerDiv = styled.div`
-    position: absolute;
-    left: ${props => props.leftposition - props.viewwidth}vw;
-    top: 85vh;
-    width: ${props => props.viewwidth}vw;
-    padding-left: 1vw;
-    height: 15vh;
     z-index: 1000;
-    background-image: linear-gradient(rgba(255,255,255,0), 10%, rgba(255,255,255,1))
-`
-
-const CarOccupantDiv = styled.div`
-    position: absolute;
-    width: ${props => props.viewwidth}vw;
-    padding-left: 1vw;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    align-items: center;
-    justify-items: center;
-    height: 15vh;
-    z-index: 1000;
-    background-image: linear-gradient(rgba(255,255,255,1), 90%, rgba(255,255,255,0))
 `
 
 const StyledCarousel = styled(Carousel)`
@@ -124,7 +104,19 @@ const ScrollItemsDiv = styled.div`
     position: relative;
     background-color: #fff;
 `
+const WidgetsDiv = styled.div`
+    width: 100%;
+    display: grid;
+    grid-template-columns: .75fr 1fr;
+    position: absolute;
+    top: 0vh;
+    z-index: 1000;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 1vh;
+    background-image: linear-gradient(rgba(255,255,255,1), 90%, rgba(255,255,255,0))
 
+`;
 
 
 export default function Map(props){
@@ -269,24 +261,12 @@ export default function Map(props){
     return (
         <MapItemsDiv>
             <MapDiv viewwidth={mapDivWidth}>
-                <CarOccupantDiv viewwidth={mapDivWidth}>
-                    <CarOccupant ref={jenRef} triggerRef={divRefs[0]} imgpath={prairie}
-                        imgwidth={10}
-                        imgheight={12}
-                    ></CarOccupant>
-                    <CarOccupant ref={jamesRef} triggerRef={divRefs[1]} imgpath={pippa}
-                        imgwidth={10}
-                        imgheight={12}
-                    ></CarOccupant>
-                    <CarOccupant ref={prairieRef} triggerRef={divRefs[13]} imgpath={prairie}
-                        imgwidth={10}
-                        imgheight={12}
-                    ></CarOccupant>
-                    <CarOccupant ref={pippaRef} triggerRef={divRefs[13]} imgpath={pippa}
-                        imgwidth={10}
-                        imgheight={12}
-                    ></CarOccupant>
-                </CarOccupantDiv>
+                <WidgetsDiv>
+                    <CarOccupants refs={[jenRef, jamesRef, pippaRef, prairieRef]}
+                        triggerRefs={[divRefs[0], divRefs[1], divRefs[13], divRefs[14]]}
+                        imgwidth={6} 
+                        imgheight={6}>
+                    </CarOccupants>
                 <TrackerDiv viewwidth={20} leftposition={mapDivWidth}>
                     <MileageTracker ref={mainDistanceRef} 
                         triggerRef={divRefs[targetRef]} 
@@ -311,6 +291,7 @@ export default function Map(props){
                         fontjustify={['end', 'start']}
                         >0</MileageTracker>
                 </TrackerDiv>
+                </WidgetsDiv>
       
                 <MapContainer ref={mapRef}
                     maxIndex={14}

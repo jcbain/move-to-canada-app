@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 
+import prairie from '../img/prairie.png';
+import pippa from '../img/pippa.png';
+
 gsap.registerPlugin(ScrollTrigger);
 
 
@@ -16,6 +19,23 @@ const StyledImg = styled.img`
     max-height: 100%;
     opacity: ${props => props.imgopacity}
 `
+
+const CarOccupantImageDiv = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    height: 8vh;
+    z-index: 1000;
+`
+
+const CarOccupantsContainer = styled.div`
+    display: grid;
+    grid-template-rows: 20% 80%;
+    align-items: start;
+
+`
+
 export const CarOccupant = forwardRef((props, ref) => {
     const [imgopacity, setImgOpacity] = useState(0.1)
     const imgpath = props.imgpath;
@@ -47,3 +67,32 @@ export const CarOccupant = forwardRef((props, ref) => {
     )
 
 })
+
+export const CarOccupants = (props) => {
+    const {refs, triggerRefs, imgwidth, imgheight} = props;
+    const jenniferimg = pippa;
+    const jamesimg = prairie;
+    const pippaimg = pippa;
+    const prairieimg = prairie;
+    const imgs = [jenniferimg, jamesimg, pippaimg, prairieimg];
+
+    const occupants = imgs.map((d, i) => {
+        return (
+            <CarOccupant key={i}
+                imgpath={d}
+                ref={refs[i]}
+                triggerRef={triggerRefs[i]}
+                imgwidth={imgwidth}
+                imgheight={imgheight}></CarOccupant>
+        )
+    })
+
+    return (
+        <CarOccupantsContainer>
+            <CarOccupantImageDiv>
+                {occupants}
+            </CarOccupantImageDiv>
+        </CarOccupantsContainer>
+    )
+
+}
