@@ -358,7 +358,7 @@ export default function Map(props){
 
             </MapDiv>
             <ScrollItemsDiv viewwidth={scrollyDivWidth}>
-                <ScrollSectionDiv issticky={true} viewwidth={scrollyDivWidth} viewheight={'15vh'} xmargin={'0'} marginbottom={5} backgroundcolor={' '}></ScrollSectionDiv>
+                {/* <ScrollSectionDiv issticky={true} viewwidth={scrollyDivWidth} viewheight={'15vh'} xmargin={'0'} marginbottom={5} backgroundcolor={' '}></ScrollSectionDiv> */}
                 <ScrollSectionDiv paddingleft={1} marginbottom={20} viewwidth={scrollyDivWidth}>
                     ...had we ever been to Calgary? No. Had Jennifer ever been to Canada? No. But these were mere baby concerns, nay!, adventure opportunities, particularly when faced with the state of the US in 2019. Woof, are we glad we made abroad before 2020!
                 </ScrollSectionDiv>
