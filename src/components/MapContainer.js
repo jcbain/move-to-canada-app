@@ -23,30 +23,34 @@ const MapContainer = forwardRef((props, ref) => {
     const lonDelta = lonMove - centerHeightVal ;
 
     useEffect(() => {
-        gsap.to(ref.current, {
-            scrollTrigger: {
-                trigger: props.triggerRef.current,
-                start: "top 90%",
-                end: "top 15%",
-                scrub: true,
-                onLeave: () => setCenterCoords({lat: latDelta, lon: lonDelta}),
-                toggleActions: "restart pause reverse pause"     
-            },
-            attr: {viewBox: `${lonDelta} ${latDelta} ${props.width} ${props.height}`}
-        })
+        if(props.animateReCenter){
+            gsap.to(ref.current, {
+                scrollTrigger: {
+                    trigger: props.triggerRef.current,
+                    start: "top 90%",
+                    end: "top 15%",
+                    scrub: true,
+                    onLeave: () => setCenterCoords({lat: latDelta, lon: lonDelta}),
+                    toggleActions: "restart pause reverse pause"     
+                },
+                attr: {viewBox: `${lonDelta} ${latDelta} ${props.width} ${props.height}`}
+            })
+        }
     }, [latDelta, lonDelta, props.height, props.width, props.triggerRef, ref])
 
     useEffect(() => {
-        gsap.to(ref.current, {
-            scrollTrigger: {
-                trigger: props.zoomRef.current,
-                start: "top 35%",
-                end: "top 10%",
-                // markers: true,
-                toggleActions: "play play reverse pause"
-            },
-            scale: zoomScale
-        })
+        if(props.animateZoom){
+            gsap.to(ref.current, {
+                scrollTrigger: {
+                    trigger: props.zoomRef.current,
+                    start: "top 35%",
+                    end: "top 10%",
+                    // markers: true,
+                    toggleActions: "play play reverse pause"
+                },
+                scale: zoomScale
+            })
+        }
     }, [zoomScale, ref, props.zoomRef])
 
     return (

@@ -2,11 +2,27 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import './App.css';
 import {Helmet} from "react-helmet";
+import {flattenDepth} from 'lodash';
+
 
 
 // import Map from './components/Map';
 import Map from './components/Map'
-import Button from '@material-ui/core/Button';
+
+import canadianProvinces from './data/canada';
+import usStates from './data/us-states';
+import route from './data/to_calgary';
+import route2 from './data/calgary_to_kc';
+import route3 from './data/kc_to_kc';
+import route4 from './data/kc_back_calgary';
+
+
+const legCoordsFlat = [route, route2, route3, route4].map(d => {
+    return d.features.map(r => {
+        return r.geometry.coordinates[0].pop()
+    })
+})
+const legCoords = flattenDepth(legCoordsFlat, 1)
 
 
 function App(props) {
@@ -41,7 +57,11 @@ function App(props) {
           height={500}
           scale={scale}
           centerLong={92.35361}
-          centerLat={38.95133}>
+          centerLat={38.95133}
+          canadianProvinces={canadianProvinces}
+          usStates={usStates}
+          routes={[route, route2, route3, route4]}
+          legCoords={legCoords}>
       </Map>
       <div>
         dalfjdl;aj dajf dklf asdljf alsdjf lasdjf lasdjf l;asdj f;lkasjd fklasdlkfj asdjf asdljf lkasdj f;lajsd flkjasd lfkjas dlkfj asd;lfj as;ldjf;laskdjfl;asdjf ;alsdjfasdjf

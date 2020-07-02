@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, forwardRef, createRef} from 'react';
+import React, { useState, useRef, createRef} from 'react';
 import { geoPath } from 'd3-geo';
 import styled from 'styled-components';
 import {flattenDepth} from 'lodash';
@@ -9,23 +9,11 @@ import { CarOccupants } from './CarOccupant';
 import { MapMarker } from './MapMarker';
 import {Carousel} from './Carousel';
 import MapContainer from './MapContainer';
-import {createProjection, getDistanceOfPath} from '../helpers/mapperHelpers'
+import {createProjection} from '../helpers/mapperHelpers'
 
-import canadianProvinces from '../data/canada';
-import usStates from '../data/us-states';
-import route from '../data/to_calgary';
-import route2 from '../data/calgary_to_kc';
-import route3 from '../data/kc_to_kc';
-import route4 from '../data/kc_back_calgary';
 import prairiemountain from '../img/prairie_mountains.jpeg'
 import pippamountain from '../img/pippa_mountains.jpeg'
 
-const legCoordsFlat = [route, route2, route3, route4].map(d => {
-    return d.features.map(r => {
-        return r.geometry.coordinates[0].pop()
-    })
-})
-const legCoords = flattenDepth(legCoordsFlat, 1)
 
 const MapItemsDiv = styled.div`
     display: flex;
@@ -119,6 +107,8 @@ const WidgetsDiv = styled.div`
 
 
 export default function Map(props){
+    const [route, route2, route3, route4] = props.routes;
+    const {canadianProvinces, usStates, legCoords} = props;
     const mapDivWidth = 60;
     const scrollyDivWidth = 100 - mapDivWidth;
     let mainDistanceRef = useRef(null);
@@ -134,6 +124,8 @@ export default function Map(props){
     const routeRefs = [...Array(maxLength)].map(() => createRef(null));
     const divRefs = [...Array(maxLength)].map(() => createRef(null));
     const opacityRefs = [...Array(4)].map(() => createRef(null));
+
+
 
     const distances = [
         218.7226151394528, 260.74039076795617,1008.7054404073135, 1243.0652973628398, 1296.5743594869143, 1309.1323913810381, 1315.8176824353268, 1334.4021779804882, 1447.3140645644319,
@@ -151,7 +143,6 @@ export default function Map(props){
     const path = geoPath().projection(projection);
 
     const tripLegCoords = [...legCoords]
-
 
     const routesLeg1 = route.features.map((d,i) => {
         return (
@@ -281,6 +272,8 @@ export default function Map(props){
                 </WidgetsDiv>
       
                 <MapContainer ref={mapRef}
+                    animateReCenter={true}
+                    animateZoom={true}
                     maxIndex={14}
                     currentIndex={targetRef}
                     projection={projection}
