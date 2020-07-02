@@ -113,7 +113,7 @@ export const Carousel = forwardRef((props, ref) => {
     
     const dots = props.slides.map((d, i) => {
         return (
-            <Dot active={i === activeIndex} onClick={() => setActiveIndex(i)}></Dot>
+            <Dot key={i} active={i === activeIndex} onClick={() => setActiveIndex(i)}></Dot>
         )
     })
 

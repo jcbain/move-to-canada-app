@@ -48,7 +48,6 @@ export const MileageTracker = forwardRef((props, ref) => {
                 start: "top 90%",
                 end: "top 15%",
                 scrub: true,
-                onEnter: () => console.log('hello'),
                 onLeave: () => props.switchRef(distanceIndex),
                 toggleActions: "restart pause reverse pause" 
             }, 
