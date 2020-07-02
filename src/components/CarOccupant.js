@@ -44,7 +44,7 @@ export const CarOccupant = forwardRef((props, ref) => {
         gsap.to(ref.current, {
             scrollTrigger:{ 
                 trigger: props.triggerRef.current,
-                markers: true,
+                // markers: true,
                 start: "top 90%",
                 end: "top 45%",
                 scrub: 1,

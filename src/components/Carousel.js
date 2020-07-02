@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useState, useEffect } from "react";
 import styled from 'styled-components';
 
 const ActiveDiv = styled.div`
@@ -58,11 +58,12 @@ const CaptionDiv = styled.div`
     display: ${props => props.active ? 'block' : 'none'};
     color: #fffff7;
     text-align: center;
+    font-family: 'Roboto Slab';
+    font-size: .9rem;
 `
 
 export const Slide = forwardRef((props, ref) => {
     const [hovered, setHovered] = useState(false);
-    const captions = (props.captions !== undefined && props.captions.length === props.slides.length) ? props.captions : Array(props.slides.length)
     const slides = props.slides.map((s, i) => {
         return (
             <ActiveDiv key={i}
@@ -71,12 +72,11 @@ export const Slide = forwardRef((props, ref) => {
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
             >
-                <ImgDiv src={s}>
+                <ImgDiv src={s.img}>
                 </ImgDiv>
                 <CaptionDiv active={hovered} viewwidth={props.viewwidth}>
-                    {captions[i]}
+                    {s.caption}
                 </CaptionDiv>
-                {/* {s} */}
             </ActiveDiv>
         )
     })

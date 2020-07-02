@@ -34,7 +34,7 @@ export const AnimatedRoute = forwardRef((props, ref) => {
         gsap.to(ref.current, {
           scrollTrigger: {
               trigger: props.triggerRef.current,
-              markers: true,
+            //   markers: true,
               start: "top 90%",
               end: "top 15%",
               scrub: true,
@@ -43,6 +43,21 @@ export const AnimatedRoute = forwardRef((props, ref) => {
             strokeDashoffset: `${0}`,
         });
       }, [props.triggerRef.current, ref.current]);
+
+      useEffect(() => {
+        gsap.to(ref.current, {
+          scrollTrigger: {
+              trigger: props.opacityTriggerRef.current,
+            //   markers: true,
+              start: "top 90%",
+              end: "top 15%",
+              scrub: true,
+              toggleActions: "restart pause reverse pause"     
+            },
+            strokeOpacity: `${0.5}`,
+        });
+      }, [props.triggerRef.current, ref.current]);
+
 
       return (
         <MapShape

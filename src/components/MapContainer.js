@@ -42,7 +42,7 @@ const MapContainer = forwardRef((props, ref) => {
                 trigger: props.zoomRef.current,
                 start: "top 35%",
                 end: "top 10%",
-                markers: true,
+                // markers: true,
                 toggleActions: "restart play reverse pause"
             },
             scale: zoomScale
