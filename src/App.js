@@ -5,7 +5,7 @@ import {Helmet} from "react-helmet";
 
 
 // import Map from './components/Map';
-import Map from './components/Map2'
+import Map from './components/Map'
 import Button from '@material-ui/core/Button';
 
 

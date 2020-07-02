@@ -32,31 +32,35 @@ export const AnimatedRoute = forwardRef((props, ref) => {
 
 
     useEffect(() => {
-        gsap.to(ref.current, {
-          scrollTrigger: {
-              trigger: props.triggerRef.current,
-            //   markers: true,
-              start: "top 90%",
-              end: "top 15%",
-              scrub: true,
-              toggleActions: "restart pause reverse pause"     
-            },
-            attr:{'stroke-dashoffset': 0.00,}
-        });
+        if( props.animateStrokeOffset){
+            gsap.to(ref.current, {
+            scrollTrigger: {
+                trigger: props.triggerRef.current,
+                //   markers: true,
+                start: "top 90%",
+                end: "top 15%",
+                scrub: true,
+                toggleActions: "restart pause reverse pause"     
+                },
+                attr:{'stroke-dashoffset': 0.00,}
+            });
+        }
       }, [props.triggerRef.current, ref.current]);
 
       useEffect(() => {
-        gsap.to(ref.current, {
-          scrollTrigger: {
-              trigger: props.opacityTriggerRef.current,
-            //   markers: true,
-              start: "top 90%",
-              end: "top 15%",
-              scrub: true,
-              toggleActions: "restart pause reverse pause"     
-            },
-            strokeOpacity: `${0.5}`,
-        });
+        if (props.animateStrokeOpacity){
+            gsap.to(ref.current, {
+            scrollTrigger: {
+                trigger: props.opacityTriggerRef.current,
+                //   markers: true,
+                start: "top 90%",
+                end: "top 15%",
+                scrub: true,
+                toggleActions: "restart pause reverse pause"     
+                },
+                strokeOpacity: `${0.5}`,
+            });
+        }
       }, [props.triggerRef.current, ref.current]);
 
 

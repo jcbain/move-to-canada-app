@@ -136,36 +136,9 @@ export default function Map(props){
     const opacityRefs = [...Array(4)].map(() => createRef(null));
 
     const distances = [
-        218.7226151394528,
-        260.74039076795617,
-        1008.7054404073135,
-        1243.0652973628398,
-        1296.5743594869143,
-        1309.1323913810381,
-        1315.8176824353268,
-        1334.4021779804882,
-        1447.3140645644319,
-        1655.853245650237,
-        2083.16171177172,
-        2303.2549984271054,
-        2628.794201250399,
-        2945.533219336934,
-        3200.396905856729,
-        3283.32271602244,
-        3543.5835693393865,
-        3878.1873067914653,
-        4003.4709047560063,
-        4094.2300509358365,
-        4209.475897938265,
-        4252.153416279632,
-        4612.297061105043,
-        5027.459739701704,
-        5036.276318461983,
-        5082.492822421188,
-        5279.57781138158,
-        5421.023742702225,
-        6207.373075786453,
-        6650.4010590161,
+        218.7226151394528, 260.74039076795617,1008.7054404073135, 1243.0652973628398, 1296.5743594869143, 1309.1323913810381, 1315.8176824353268, 1334.4021779804882, 1447.3140645644319,
+        1655.853245650237, 2083.16171177172, 2303.2549984271054, 2628.794201250399, 2945.533219336934, 3200.396905856729, 3283.32271602244, 3543.5835693393865, 3878.1873067914653, 4003.4709047560063, 4094.2300509358365,
+        4209.475897938265, 4252.153416279632, 4612.297061105043, 5027.459739701704, 5036.276318461983, 5082.492822421188, 5279.57781138158, 5421.023742702225, 6207.373075786453, 6650.4010590161,
         7345.7787158131605, 8124.508479849123, 8772.325909470586, 10127.363744576593, 10563.188138459751, 11093.383923592719, 11660.246386956627, 11935.737077500497, 12112.534033632728, 12622.754235322662
       ]
     const [targetRef, setTargetRef] = useState(0);
@@ -180,7 +153,7 @@ export default function Map(props){
     const tripLegCoords = [...legCoords]
 
 
-    const animatedRoutes = route.features.map((d,i) => {
+    const routesLeg1 = route.features.map((d,i) => {
         return (
             <AnimatedRoute 
                 key={`route-${i}`}
@@ -195,72 +168,80 @@ export default function Map(props){
                 strokeWidth={'2px'}
                 fill={'none'}
                 usePathMeasure={true}
+                animateStrokeOffset={true}
+                animateStrokeOpacity={true}
             >
         </AnimatedRoute>
 
         )
     })
 
-    const animatedRoutes2 = route2.features.map((d,i) => {
+    const routesLeg2 = route2.features.map((d,i) => {
         const cumAdd = route.features.length;
         return (
             <AnimatedRoute 
-            key={`route-${i+cumAdd}`}
-            ref={routeRefs[i+cumAdd]}
-            triggerRef={divRefs[i+cumAdd]}
-            opacityTriggerRef={opacityRefs[1]}
-            useFeatures={false}
-            className={'route'}
-            data={[d]}
-            path={path}
-            stroke={'#ff6b54'}
-            strokeWidth={'2px'}
-            fill={'none'}
-            usePathMeasure={true}>
-        </AnimatedRoute>
-
+                key={`route-${i+cumAdd}`}
+                ref={routeRefs[i+cumAdd]}
+                triggerRef={divRefs[i+cumAdd]}
+                opacityTriggerRef={opacityRefs[1]}
+                useFeatures={false}
+                className={'route'}
+                data={[d]}
+                path={path}
+                stroke={'#ff6b54'}
+                strokeWidth={'2px'}
+                fill={'none'}
+                usePathMeasure={true}
+                animateStrokeOffset={true}
+                animateStrokeOpacity={true}
+            >
+            </AnimatedRoute>
         )
     })
 
-    const animatedRoutes3 = route3.features.map((d,i) => {
+    const routesLeg3 = route3.features.map((d,i) => {
         const cumAdd = route.features.length + route2.features.length;
         return (
             <AnimatedRoute 
-            key={`route-${i + cumAdd}`}
-            ref={routeRefs[i+ cumAdd]}
-            triggerRef={divRefs[i+cumAdd]}
-            opacityTriggerRef={opacityRefs[2]}
-            useFeatures={false}
-            className={'route'}
-            data={[d]}
-            path={path}
-            stroke={'#ff6b54'}
-            strokeWidth={'2px'}
-            fill={'none'}
-            usePathMeasure={true}>
-        </AnimatedRoute>
-
+                key={`route-${i + cumAdd}`}
+                ref={routeRefs[i+ cumAdd]}
+                triggerRef={divRefs[i+cumAdd]}
+                opacityTriggerRef={opacityRefs[2]}
+                useFeatures={false}
+                className={'route'}
+                data={[d]}
+                path={path}
+                stroke={'#ff6b54'}
+                strokeWidth={'2px'}
+                fill={'none'}
+                usePathMeasure={true}
+                animateStrokeOffset={true}
+                animateStrokeOpacity={true}
+            >
+            </AnimatedRoute>
         )
     })
 
-    const animatedRoutes4 = route4.features.map((d,i) => {
+    const routesLeg4 = route4.features.map((d,i) => {
         const cumAdd = route.features.length + route2.features.length + route3.features.length;
         return (
             <AnimatedRoute 
-            key={`route-${i + cumAdd}`}
-            ref={routeRefs[i+cumAdd]}
-            triggerRef={divRefs[i+cumAdd]}
-            opacityTriggerRef={opacityRefs[3]}
-            useFeatures={false}
-            className={'route'}
-            data={[d]}
-            path={path}
-            stroke={'#ff6b54'}
-            strokeWidth={'2px'}
-            fill={'none'}
-            usePathMeasure={true}>
-        </AnimatedRoute>
-
+                key={`route-${i + cumAdd}`}
+                ref={routeRefs[i+cumAdd]}
+                triggerRef={divRefs[i+cumAdd]}
+                opacityTriggerRef={opacityRefs[3]}
+                useFeatures={false}
+                className={'route'}
+                data={[d]}
+                path={path}
+                stroke={'#ff6b54'}
+                strokeWidth={'2px'}
+                fill={'none'}
+                usePathMeasure={true}
+                animateStrokeOffset={true}
+                animateStrokeOpacity={true}
+            >
+            </AnimatedRoute>
         )
     })
 
@@ -329,10 +310,10 @@ export default function Map(props){
                             fill={'#fff'}>
                         </MapShape>
 
-                        {animatedRoutes}
-                        {animatedRoutes2}
-                        {animatedRoutes3}
-                        {animatedRoutes4}
+                        {routesLeg1}
+                        {routesLeg2}
+                        {routesLeg3}
+                        {routesLeg4}
     
                         <MapMarker ref={circleRef}
                             pathRef={routeRefs[targetRef]}
