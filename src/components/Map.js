@@ -1,7 +1,6 @@
 import React, { useState, useRef, createRef} from 'react';
 import { geoPath } from 'd3-geo';
 import styled from 'styled-components';
-import {flattenDepth} from 'lodash';
 
 import{ MapShape, AnimatedRoute } from './MapShapes';
 import { MileageTracker } from './MileageTracker';

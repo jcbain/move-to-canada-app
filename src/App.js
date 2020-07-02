@@ -7,7 +7,8 @@ import {flattenDepth} from 'lodash';
 
 
 // import Map from './components/Map';
-import Map from './components/Map'
+import Map from './components/Map';
+import BottomMap from './components/BottomMap';
 
 import canadianProvinces from './data/canada';
 import usStates from './data/us-states';
@@ -63,10 +64,18 @@ function App(props) {
           routes={[route, route2, route3, route4]}
           legCoords={legCoords}>
       </Map>
-      <div>
-        dalfjdl;aj dajf dklf asdljf alsdjf lasdjf lasdjf l;asdj f;lkasjd fklasdlkfj asdjf asdljf lkasdj f;lajsd flkjasd lfkjas dlkfj asd;lfj as;ldjf;laskdjfl;asdjf ;alsdjfasdjf
-        alfakdja;lkjsdf;lajsd fljas dlfj as;dlfj as;ldkjf as;dkljf al;sdjf a;sdlkjf a;dlkjf asd;klfj as;ldkjf asd
-      </div>
+      <BottomMap className="bottomMap"
+          width={500}
+          height={500}
+          scale={scale-0.5}
+          centerLong={92.35361}
+          centerLat={48.95133}
+          canadianProvinces={canadianProvinces}
+          usStates={usStates}
+          routes={[route, route2, route3, route4]}
+        >
+      </BottomMap>
+
     </div>
   )
 }
