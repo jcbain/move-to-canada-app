@@ -181,17 +181,18 @@ export default function Map(props){
     const animatedRoutes = route.features.map((d,i) => {
         return (
             <AnimatedRoute 
-            key={`route-${i}`}
-            ref={routeRefs[i]}
-            triggerRef={divRefs[i]}
-            useFeatures={false}
-            className={'route'}
-            data={[d]}
-            path={path}
-            stroke={'#ff774a'}
-            strokeWidth={'2px'}
-            fill={'none'}
-            usePathMeasure={true}>
+                key={`route-${i}`}
+                ref={routeRefs[i]}
+                triggerRef={divRefs[i]}
+                useFeatures={false}
+                className={'route'}
+                data={[d]}
+                path={path}
+                stroke={'#ff774a'}
+                strokeWidth={'2px'}
+                fill={'none'}
+                usePathMeasure={true}
+            >
         </AnimatedRoute>
 
         )
@@ -353,21 +354,16 @@ export default function Map(props){
                 <ScrollSectionDiv paddingleft={1} marginbottom={20} viewwidth={scrollyDivWidth}>
                     This was our home for pretty much all of our adult life.
                 </ScrollSectionDiv>
-                <ScrollSectionDiv
-                     marginbottom={10} 
-                     viewwidth={scrollyDivWidth} 
-                     backgroundcolor={'#fff'}>
-                    <Headline fontcolor={'#404040'}>Glacier National Park</Headline>
-                    <StyledHr backgroundcolor={'#404040'}></StyledHr>
-                    <SubTitle fontcolor={'#404040'}>crown of the continent</SubTitle>
-                </ScrollSectionDiv>
 
-                <ScrollSectionDiv viewwidth={scrollyDivWidth}>
-                    "Crown of the Continent". What does that even mean? Did you forget about the entire country sitting just to your North?
-                </ScrollSectionDiv>
 
-                <ScrollSectionDiv viewwidth={scrollyDivWidth} xmargin={7} paddingleft={'0'} paddingright={'0'}>
-                    <StyledCarousel className="firstcarousel" slides={[<ImgWrapper width={'100%'} src={prairiemountain}></ImgWrapper>,<ImgWrapper width={'100%'} src={pippamountain}></ImgWrapper>, <ImgWrapper width={'100%'} src={pippamountain}></ImgWrapper>]}></StyledCarousel>
+                <ScrollSectionDiv viewwidth={scrollyDivWidth} xmargin={5} paddingleft={'0'} paddingright={'0'}>
+                    <StyledCarousel className="firstcarousel" 
+                    viewwidth={scrollyDivWidth-10} 
+                    slides={[prairiemountain, pippamountain]}
+                    captions={['prairie', 'pippa']}
+                    >
+
+                    </StyledCarousel>
                 </ScrollSectionDiv>
                 <ScrollSectionDiv ref={divRefs[0]} viewwidth={scrollyDivWidth}>
             
@@ -487,11 +483,19 @@ export default function Map(props){
                     Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
                     Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
                 </ScrollSectionDiv>
-                <ScrollSectionDiv ref={divRefs[16]}>
-                    ...and so Jennifer set off from Columbia, MO, our home of 10ish years to where we grew up in Kansas City, MO. This was the end of a chapter, perhaps even a book and a new one was about to begin. We had thousands of miles ahead of us, three border crossings, 
-                    nearly half of the states in the US and a handful of provinces yet ahead.
-                    Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
-                    Varius quam quisque id diam vel. Quisque egestas diam in arcu cursus euismod. Cursus risus at ultrices mi. Eleifend donec pretium vulputate sapien nec sagittis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet cursus sit amet dictum sit amet justo donec. Ante metus dictum at tempor. Donec ac odio tempor orci. Pulvinar mattis nunc sed blandit. Amet nisl suscipit adipiscing bibendum est. Nulla aliquet enim tortor at auctor urna nunc id cursus.
+                <ScrollSectionDiv
+                    ref={divRefs[16]}
+                    marginbottom={10} 
+                    viewwidth={scrollyDivWidth} 
+                    backgroundcolor={'#fff'}
+                >
+                    <Headline fontcolor={'#404040'}>Glacier National Park</Headline>
+                    <StyledHr backgroundcolor={'#404040'}></StyledHr>
+                    <SubTitle fontcolor={'#404040'}>crown of the continent</SubTitle>
+                </ScrollSectionDiv>
+
+                <ScrollSectionDiv viewwidth={scrollyDivWidth}>
+                    "Crown of the Continent". What does that even mean? Did you forget about the entire country sitting just to your North?
                 </ScrollSectionDiv>
                 <ScrollSectionDiv ref={divRefs[17]}>
                     ...and so Jennifer set off from Columbia, MO, our home of 10ish years to where we grew up in Kansas City, MO. This was the end of a chapter, perhaps even a book and a new one was about to begin. We had thousands of miles ahead of us, three border crossings, 
