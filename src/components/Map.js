@@ -318,8 +318,11 @@ export default function Map(props){
 
             </MapDiv>
             <ScrollItemsDiv viewwidth={scrollyDivWidth}>
-                <ScrollSectionDiv paddingleft={1} marginbottom={20} viewwidth={scrollyDivWidth}>
-                    ...had we ever been to Calgary? No. Had Jennifer ever been to Canada? No. But these were mere baby concerns, nay!, adventure opportunities, particularly when faced with the state of the US in 2019. Woof, are we glad we made abroad before 2020!
+                <ScrollSectionDiv paddingleft={1} marginbottom={25} viewwidth={scrollyDivWidth}>
+                    We must admit, calling a new place home site-unseen is a bit of a risk, but given the opportunity to move abroad, even if abroad is simply stumbling upon our more friendly neighbors too the north, it seemed worth it. We're just fortunate that we made the trek up in 2019. 
+                    <br />
+                    <br />
+                    But let's back up a bit. We're charting our entire move here, which means not just us crossing the border once, but three times in the span of three weeks. We believe it best to start this story at the beginning...
                 </ScrollSectionDiv>
                 <ScrollSectionDiv ref={columbiaDivRef}
                      marginbottom={10} 
@@ -330,7 +333,7 @@ export default function Map(props){
                     <SubTitle fontcolor={"#fff"}>It all started here...</SubTitle>
                 </ScrollSectionDiv>
                 <ScrollSectionDiv paddingleft={1} marginbottom={20} viewwidth={scrollyDivWidth}>
-                    This was our home for pretty much all of our adult life.
+                    An American college town of nearly 130,000 residents known for being the city in the middle of the state, which in turn, is known for being in the middle of the country. For nearly 10 years, we called this place home. 
                 </ScrollSectionDiv>
 
 
