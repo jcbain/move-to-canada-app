@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect } from "react";
+import React, { forwardRef, useState } from "react";
 import styled from 'styled-components';
 
 const ActiveDiv = styled.div`
@@ -92,24 +92,7 @@ export const Slide = forwardRef((props, ref) => {
 })
 
 export const Carousel = forwardRef((props, ref) => {
-    const numSlides = props.slides.length;
     const [activeIndex, setActiveIndex] = useState(0);
-
-    const goToNextSlide = () => {
-        if(activeIndex === numSlides - 1) {
-            setActiveIndex(0)
-        } else {
-            setActiveIndex(activeIndex + 1)
-        }
-    }
-
-    const goToPreviousSlide = () => {
-        if(activeIndex === 0) {
-            setActiveIndex(numSlides - 1);
-        } else {
-            setActiveIndex(activeIndex - 1)
-        }
-    }
     
     const dots = props.slides.map((d, i) => {
         return (

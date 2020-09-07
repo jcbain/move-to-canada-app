@@ -1,7 +1,7 @@
 import React, {forwardRef, useEffect} from 'react';
 import gsap from 'gsap';
-import {toString, round} from 'lodash'
-import {ScrollTrigger} from 'gsap/ScrollTrigger';
+import { round } from 'lodash'
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 

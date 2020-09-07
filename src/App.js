@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import './App.css';
 import {Helmet} from "react-helmet";
 import {flattenDepth} from 'lodash';
 
@@ -26,17 +24,8 @@ const legCoordsFlat = [route, route2, route3, route4].map(d => {
 const legCoords = flattenDepth(legCoordsFlat, 1)
 
 
-function App(props) {
+function App() {
   const [scale, setScale] = useState(2);
-
-  // const zoomInScale = () => {
-  //   setScale(scale + 1);
-  // }
-  // const zoomOutScale = () => {
-  //   if(scale > 1){
-  //     setScale(scale - 1)
-  //   }
-  // }
 
 
   return(

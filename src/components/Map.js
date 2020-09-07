@@ -1,4 +1,4 @@
-import React, { useState, useRef, createRef} from 'react';
+import React, { useState, useRef, createRef } from 'react';
 import { geoPath } from 'd3-geo';
 import styled from 'styled-components';
 
@@ -6,9 +6,9 @@ import{ MapShape, AnimatedRoute } from './MapShapes';
 import { MileageTracker } from './MileageTracker';
 import { CarOccupants } from './CarOccupant';
 import { MapMarker } from './MapMarker';
-import {Carousel} from './Carousel';
+import { Carousel } from './Carousel';
 import MapContainer from './MapContainer';
-import {createProjection} from '../helpers/mapperHelpers'
+import { createProjection } from '../helpers/mapperHelpers'
 
 import prairiemountain from '../img/prairie_mountains.jpeg'
 import pippamountain from '../img/pippa_mountains.jpeg'
@@ -51,12 +51,6 @@ const ScrollSectionDiv = styled.div`
     margin-top: 2vh;
 `
 
-
-
-const ImgWrapper = styled.img`
-    // box-shadow: 0 4px 4px rgba(0,0,0,0.1);
-
-`
 
 const Headline = styled.h1`
     font-size: 3rem;
