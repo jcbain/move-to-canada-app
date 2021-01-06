@@ -25,7 +25,7 @@ import Map from "./components/NewMap";
 // });
 // const legCoords = flattenDepth(legCoordsFlat, 1);
 
-function App(props) {
+function App() {
   const [scale, setScale] = useState(2);
 
   // const zoomInScale = () => {

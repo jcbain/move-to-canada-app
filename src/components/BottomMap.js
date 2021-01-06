@@ -1,8 +1,8 @@
-import React, {useState, useRef, createRef} from 'react';
+import React from 'react';
 import { geoPath } from 'd3-geo';
 import styled from 'styled-components';
 
-import{ MapShape, AnimatedRoute } from './MapShapes';
+import{ MapShape } from './MapShapes';
 import MapContainer from './MapContainer';
 import {createProjection} from '../helpers/mapperHelpers'
 
@@ -12,7 +12,6 @@ const MapItemsDiv = styled.div`
 `
 
 const BottomMap = (props) => {
-    const [route, route2, route3, route4] = props.routes;
     const {canadianProvinces, usStates} = props;
     const projection = createProjection(props.width, props.height, props.scale, props.centerLong, props.centerLat);
     const path = geoPath().projection(projection);
