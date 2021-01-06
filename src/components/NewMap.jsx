@@ -5,6 +5,7 @@ import { geoPath } from "d3-geo";
 import { createProjection } from "../helpers/mapperHelpers";
 import TerritoryBoundaries from "./TerritoryBoundaries";
 import usStates from "../data/us-states";
+import canadianProvinces from "../data/canada";
 //will replace former MapContainer.js
 
 const MapSVG = styled.svg`
@@ -30,6 +31,7 @@ const Map = (props) => {
   return (
     <MapSVG viewBox={[centerLong, centerLat, width, height]}>
       <TerritoryBoundaries path={path} data={usStates} />
+      <TerritoryBoundaries path={path} data={canadianProvinces} />
     </MapSVG>
   );
 };
