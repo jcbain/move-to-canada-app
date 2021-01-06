@@ -5,24 +5,25 @@ import { Helmet } from "react-helmet";
 import { flattenDepth } from "lodash";
 
 import { GlobalStyle, lightTheme } from "./theme/theme";
+import Map from "./components/NewMap";
 
 // import Map from './components/Map';
-import Map from "./components/Map";
-import BottomMap from "./components/BottomMap";
+// import Map from "./components/Map";
+// import BottomMap from "./components/BottomMap";
 
-import canadianProvinces from "./data/canada";
-import usStates from "./data/us-states";
-import route from "./data/to_calgary";
-import route2 from "./data/calgary_to_kc";
-import route3 from "./data/kc_to_kc";
-import route4 from "./data/kc_back_calgary";
+// import canadianProvinces from "./data/canada";
+// import usStates from "./data/us-states";
+// import route from "./data/to_calgary";
+// import route2 from "./data/calgary_to_kc";
+// import route3 from "./data/kc_to_kc";
+// import route4 from "./data/kc_back_calgary";
 
-const legCoordsFlat = [route, route2, route3, route4].map((d) => {
-  return d.features.map((r) => {
-    return r.geometry.coordinates[0].pop();
-  });
-});
-const legCoords = flattenDepth(legCoordsFlat, 1);
+// const legCoordsFlat = [route, route2, route3, route4].map((d) => {
+//   return d.features.map((r) => {
+//     return r.geometry.coordinates[0].pop();
+//   });
+// });
+// const legCoords = flattenDepth(legCoordsFlat, 1);
 
 function App(props) {
   const [scale, setScale] = useState(2);
@@ -76,7 +77,8 @@ function App(props) {
             rel="stylesheet"
           />
         </Helmet>
-        <Map
+        <Map />
+        {/* <Map
           className="map"
           width={500}
           height={500}
@@ -98,7 +100,7 @@ function App(props) {
           canadianProvinces={canadianProvinces}
           usStates={usStates}
           routes={[route, route2, route3, route4]}
-        ></BottomMap>
+        ></BottomMap> */}
       </div>
     </ThemeProvider>
   );
