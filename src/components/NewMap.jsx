@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { geoPath } from "d3-geo";
 
@@ -15,7 +15,16 @@ const MapSVG = styled.svg`
   height: 100%;
 `;
 
+const Button = styled.button`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+`;
+
 const Map = (props) => {
+  const [moveForward, setMoveForward] = useState(false);
+
   const width = 500,
     height = 500,
     centerLong = 92.35361,
@@ -31,14 +40,25 @@ const Map = (props) => {
   const path = geoPath().projection(projection);
 
   const routes = route.features.map((d, i) => {
-    return <AnimatedRoute key={i} data={d} path={path} />;
+    return (
+      <AnimatedRoute key={i} data={d} path={path} moveForward={moveForward} />
+    );
   });
+
   return (
-    <MapSVG viewBox={[centerLong, centerLat, width, height]}>
-      <TerritoryBoundaries path={path} data={usStates} />
-      <TerritoryBoundaries path={path} data={canadianProvinces} />
-      {routes}
-    </MapSVG>
+    <>
+      <Button onClick={() => setMoveForward((prev) => !prev)}>move</Button>
+      <MapSVG viewBox={[centerLong, centerLat, width, height]}>
+        <TerritoryBoundaries path={path} data={usStates} />
+        <TerritoryBoundaries path={path} data={canadianProvinces} />
+        <AnimatedRoute
+          data={route.features[0]}
+          path={path}
+          moveForward={moveForward}
+        />
+        ;{/* {routes} */}
+      </MapSVG>
+    </>
   );
 };
 
