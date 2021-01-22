@@ -12,10 +12,22 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const colors = {
+  yellows: {
+    yellow1: "#e3ca0b",
+  },
+  reds: {
+    red1: "#c87445",
+    red2: "#bf5934",
+  },
+  greens: {
+    green1: "#bec680",
+  },
+  neutrals: {
+    brown: "#674831",
+  },
+};
+
 export const lightTheme = {
-  yellow: "#e3ca0b",
-  rust: "#bf5934",
-  red: "#c87445",
-  mint: "#bec680",
-  brown: "#674831",
+  mapOutlineColor: colors.reds.red1,
 };

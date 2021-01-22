@@ -13,7 +13,7 @@ import Map from "./components/NewMap";
 
 // import canadianProvinces from "./data/canada";
 // import usStates from "./data/us-states";
-// import route from "./data/to_calgary";
+import route from "./data/to_calgary";
 // import route2 from "./data/calgary_to_kc";
 // import route3 from "./data/kc_to_kc";
 // import route4 from "./data/kc_back_calgary";
@@ -36,6 +36,7 @@ function App() {
   //     setScale(scale - 1)
   //   }
   // }
+  console.log(route);
 
   return (
     <ThemeProvider theme={lightTheme}>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const StyledPath = styled.path`
   fill: none;
-  stroke: ${({ theme }) => theme.red};
+  stroke: ${({ theme }) => theme.mapOutlineColor};
   stroke-width: 1px;
 `;
 const TerritoryBoundaries = (props) => {
