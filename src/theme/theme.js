@@ -30,4 +30,5 @@ const colors = {
 
 export const lightTheme = {
   mapOutlineColor: colors.reds.red1,
+  routeColor: colors.yellows.yellow1,
 };

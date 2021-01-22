@@ -9,7 +9,7 @@ const StyledPath = styled.path`
 const TerritoryBoundaries = (props) => {
   const { path, data } = props;
   const territories = data.features.map((feature, i) => {
-    return <StyledPath className="territory" d={path(feature)} />;
+    return <StyledPath key={i} className="territory" d={path(feature)} />;
   });
 
   return <>{territories}</>;

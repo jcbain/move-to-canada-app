@@ -6,6 +6,8 @@ import { createProjection } from "../helpers/mapperHelpers";
 import TerritoryBoundaries from "./TerritoryBoundaries";
 import usStates from "../data/us-states";
 import canadianProvinces from "../data/canada";
+import AnimatedRoute from "./AnimatedRoute";
+import route from "../data/to_calgary";
 //will replace former MapContainer.js
 
 const MapSVG = styled.svg`
@@ -28,10 +30,14 @@ const Map = (props) => {
   );
   const path = geoPath().projection(projection);
 
+  const routes = route.features.map((d, i) => {
+    return <AnimatedRoute key={i} data={d} path={path} />;
+  });
   return (
     <MapSVG viewBox={[centerLong, centerLat, width, height]}>
       <TerritoryBoundaries path={path} data={usStates} />
       <TerritoryBoundaries path={path} data={canadianProvinces} />
+      {routes}
     </MapSVG>
   );
 };
