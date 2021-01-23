@@ -7,7 +7,7 @@ import TerritoryBoundaries from "./TerritoryBoundaries";
 import usStates from "../data/us-states";
 import canadianProvinces from "../data/canada";
 import AnimatedRoute from "./AnimatedRoute";
-import route from "../data/to_calgary";
+
 //will replace former MapContainer.js
 
 const MapSVG = styled.svg`
@@ -15,14 +15,9 @@ const MapSVG = styled.svg`
   height: 100%;
 `;
 
-const Button = styled.button`
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 1000;
-`;
-
 const Map = (props) => {
+  const { route, routeRefs, triggerRefs } = props;
+
   const [moveForward, setMoveForward] = useState(false);
 
   const width = 500,
@@ -41,22 +36,23 @@ const Map = (props) => {
 
   const routes = route.features.map((d, i) => {
     return (
-      <AnimatedRoute key={i} data={d} path={path} moveForward={moveForward} />
+      <AnimatedRoute
+        key={i}
+        ref={routeRefs[i]}
+        trigger={triggerRefs[i]}
+        data={d}
+        path={path}
+      />
     );
   });
 
   return (
     <>
-      <Button onClick={() => setMoveForward((prev) => !prev)}>move</Button>
       <MapSVG viewBox={[centerLong, centerLat, width, height]}>
         <TerritoryBoundaries path={path} data={usStates} />
         <TerritoryBoundaries path={path} data={canadianProvinces} />
-        <AnimatedRoute
-          data={route.features[0]}
-          path={path}
-          moveForward={moveForward}
-        />
-        ;{/* {routes} */}
+
+        {routes}
       </MapSVG>
     </>
   );

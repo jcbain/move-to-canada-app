@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet";
 import { flattenDepth } from "lodash";
 
 import { GlobalStyle, lightTheme } from "./theme/theme";
-import Map from "./components/NewMap";
+import Story from "./components/Story";
 
 // import Map from './components/Map';
 // import Map from "./components/Map";
@@ -13,7 +13,7 @@ import Map from "./components/NewMap";
 
 // import canadianProvinces from "./data/canada";
 // import usStates from "./data/us-states";
-import route from "./data/to_calgary";
+// import route from "./data/to_calgary";
 // import route2 from "./data/calgary_to_kc";
 // import route3 from "./data/kc_to_kc";
 // import route4 from "./data/kc_back_calgary";
@@ -26,7 +26,7 @@ import route from "./data/to_calgary";
 // const legCoords = flattenDepth(legCoordsFlat, 1);
 
 function App() {
-  const [scale, setScale] = useState(2);
+  // const [scale, setScale] = useState(2);
 
   // const zoomInScale = () => {
   //   setScale(scale + 1);
@@ -36,7 +36,6 @@ function App() {
   //     setScale(scale - 1)
   //   }
   // }
-  console.log(route);
 
   return (
     <ThemeProvider theme={lightTheme}>
@@ -78,7 +77,7 @@ function App() {
             rel="stylesheet"
           />
         </Helmet>
-        <Map />
+        <Story />
         {/* <Map
           className="map"
           width={500}

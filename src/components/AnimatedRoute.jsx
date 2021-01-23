@@ -1,6 +1,7 @@
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef } from "react";
 import styled from "styled-components";
 import { useSpring, animated } from "react-spring";
+import useAdvanceRoute from "../hooks/useAdvanceRoute";
 
 const Path = styled(animated.path)`
   fill: none;
@@ -10,7 +11,8 @@ const Path = styled(animated.path)`
 `;
 
 const AnimatedRoute = forwardRef((props, ref) => {
-  const { path, data, moveForward } = props;
+  const { path, data, trigger } = props;
+  const moveForward = useAdvanceRoute(ref, trigger);
   const pathMeasure = path.measure(data);
   const { dashOffset } = useSpring({
     dashOffset: moveForward ? 0 : pathMeasure,
@@ -18,6 +20,7 @@ const AnimatedRoute = forwardRef((props, ref) => {
 
   return (
     <Path
+      ref={ref}
       d={path(data)}
       dasharray={pathMeasure}
       strokeDashoffset={dashOffset}
