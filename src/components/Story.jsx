@@ -22,6 +22,7 @@ const StoryDiv = styled.div`
 
 const StyledP = styled.p`
   margin-top: 100vh;
+  margin-bottom: 100vh;
   border: 2px solid black;
 `;
 
