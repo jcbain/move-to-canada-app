@@ -2,6 +2,7 @@ import React, { createRef } from "react";
 import styled from "styled-components";
 import Map from "./NewMap";
 import route from "../data/to_calgary";
+import useRouteData from "../hooks/useRouteData";
 
 const StyledArticle = styled.article`
   position: relative;
@@ -27,6 +28,8 @@ const StyledP = styled.p`
 `;
 
 const Story = () => {
+  const routes = useRouteData();
+  console.log(routes);
   const routeRefs = [...Array(route.features.length)].map(() =>
     createRef(null)
   );
