@@ -47,21 +47,20 @@ const dummy2 = {
 };
 const useRouteData = () => {
   const [routes, setRoutes] = useState({});
+  const [loaded, setLoaded] = useState(false);
   const routeData = [route1, route2, route3, route4];
 
   useEffect(() => {
     let features = [];
     routeData.forEach((route) => {
-      // console.log(route);
       features = features.concat(route.features);
     });
-    // const data = dummy1.features.concat(dummy2.features);
     const newRoutes = { ...route1, features: features };
     setRoutes(newRoutes);
+    setLoaded(true);
   }, []);
 
-  return routes;
-  // push features from 2-4 onto route 1
+  return { routes, loaded };
 };
 
 export default useRouteData;

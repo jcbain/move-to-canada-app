@@ -1,7 +1,6 @@
 import React, { createRef } from "react";
 import styled from "styled-components";
 import Map from "./NewMap";
-import route from "../data/to_calgary";
 import useRouteData from "../hooks/useRouteData";
 
 const StyledArticle = styled.article`
@@ -28,20 +27,19 @@ const StyledP = styled.p`
 `;
 
 const Story = () => {
-  const routes = useRouteData();
-  console.log(routes);
-  const routeRefs = [...Array(route.features.length)].map(() =>
-    createRef(null)
-  );
+  const { routes, loaded } = useRouteData();
+  const routeRefs =
+    loaded && [...Array(routes.features.length)].map(() => createRef(null));
 
-  const triggerRefs = [...Array(route.features.length)].map(() =>
-    createRef(null)
-  );
+  const triggerRefs =
+    loaded && [...Array(routes.features.length)].map(() => createRef(null));
 
   return (
     <StyledArticle>
       <MapDiv>
-        <Map route={route} routeRefs={routeRefs} triggerRefs={triggerRefs} />
+        {loaded && (
+          <Map route={routes} routeRefs={routeRefs} triggerRefs={triggerRefs} />
+        )}
       </MapDiv>
       <StoryDiv>
         <StyledP ref={triggerRefs[0]}>first styled p</StyledP>
