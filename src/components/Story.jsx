@@ -29,6 +29,15 @@ const StyledP = styled.p`
 const Story = () => {
   const { routes, loaded, routeRefs, triggerRefs } = useRouteData();
 
+  const storySections =
+    loaded &&
+    triggerRefs.map((ref, i) => {
+      return (
+        <StyledP key={i} ref={ref}>
+          this is for route {i}
+        </StyledP>
+      );
+    });
   return (
     <StyledArticle>
       <MapDiv>
@@ -36,10 +45,7 @@ const Story = () => {
           <Map route={routes} routeRefs={routeRefs} triggerRefs={triggerRefs} />
         )}
       </MapDiv>
-      <StoryDiv>
-        <StyledP ref={triggerRefs[0]}>first styled p</StyledP>
-        <StyledP ref={triggerRefs[1]}>second styled p</StyledP>
-      </StoryDiv>
+      <StoryDiv>{storySections}</StoryDiv>
     </StyledArticle>
   );
 };
