@@ -1,4 +1,4 @@
-import React, { createRef } from "react";
+import React from "react";
 import styled from "styled-components";
 import Map from "./NewMap";
 import useRouteData from "../hooks/useRouteData";
@@ -27,12 +27,7 @@ const StyledP = styled.p`
 `;
 
 const Story = () => {
-  const { routes, loaded } = useRouteData();
-  const routeRefs =
-    loaded && [...Array(routes.features.length)].map(() => createRef(null));
-
-  const triggerRefs =
-    loaded && [...Array(routes.features.length)].map(() => createRef(null));
+  const { routes, loaded, routeRefs, triggerRefs } = useRouteData();
 
   return (
     <StyledArticle>
