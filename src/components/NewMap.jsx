@@ -32,6 +32,15 @@ const Map = (props) => {
     centerLong,
     centerLat
   );
+  // TODO: The code below demonstrates how to update the viewbox where the values inside of the projection call are where you want to go. The latDelta and lonDelta become the new x,y values in viewbox
+  // May need to update spring to v9 for viewbox springs https://spectrum.chat/react-spring/general/modify-spring-value~d159241c-9f91-4d74-9943-cfc765c59abd
+  // console.log(projection([-111.96755, 48.99651]));
+  // const [lonMove, latMove] = projection([-111.96755, 48.99651]);
+  // const lonDelta = lonMove - height / 2;
+  // const latDelta = latMove - width / 2;
+
+  console.log(lonDelta, latDelta);
+
   const path = geoPath().projection(projection);
 
   const routes = route.features.map((d, i) => {
