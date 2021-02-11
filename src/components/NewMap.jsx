@@ -55,23 +55,7 @@ const Map = (props) => {
   const { x, y } = useSpring({
     x: moveMap ? latDelta : centerLat,
     y: moveMap ? lonDelta : centerLong,
-    config: {
-      // mass: 100,
-    },
   });
-
-  // TODO: The code below demonstrates how to update the viewbox where the values inside of the projection call are where you want to go. The latDelta and lonDelta become the new x,y values in viewbox
-  // May need to update spring to v9 for viewbox springs https://spectrum.chat/react-spring/general/modify-spring-value~d159241c-9f91-4d74-9943-cfc765c59abd
-  // console.log(projection([-111.96755, 48.99651]));
-  // const [lonMove, latMove] = projection([-111.96755, 48.99651]);
-  // const lonDelta = lonMove - height / 2;
-  // const latDelta = latMove - width / 2;
-
-  // console.log(lonDelta, latDelta);
-
-  console.log(
-    calculateMapMove([-111.96755, 48.99651], projection, height, width)
-  );
 
   const path = geoPath().projection(projection);
 
@@ -90,13 +74,7 @@ const Map = (props) => {
   return (
     <>
       <TempBtn onClick={() => setMoveMap((prev) => !prev)}>click me</TempBtn>
-      {/* <MapSVG viewBox={[centerLong, centerLat, width, height]}> */}
-      <MapSVG
-        viewBox={to([x, y], (x, y) => `${x},${y},${width},${height}`)}
-        // style={{
-        //   viewBox: `${centerLat},${centerLong},${width},${height}`,
-        // }}
-      >
+      <MapSVG viewBox={to([x, y], (x, y) => `${x},${y},${width},${height}`)}>
         <TerritoryBoundaries path={path} data={usStates} />
         <TerritoryBoundaries path={path} data={canadianProvinces} />
         {routes}
