@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSpring, animated, to } from "react-spring";
 import styled from "styled-components";
 import { geoPath } from "d3-geo";
@@ -24,8 +24,7 @@ const MapSVG = styled(animated.svg)`
 const Map = (props) => {
   const { route, routeRefs, triggerRefs } = props;
   const [moveMap, setMoveMap] = useState(false);
-
-  const [moveForward, setMoveForward] = useState(false);
+  const [moveIndex, setMoveIndex] = useState(0);
 
   const width = 500,
     height = 500,
@@ -46,12 +45,22 @@ const Map = (props) => {
     const latDelta = latMove - width / 2;
     return { lonDelta, latDelta };
   };
+
   const { lonDelta, latDelta } = calculateMapMove(
     [-111.96755, 48.99651],
     projection,
     height,
     width
   );
+
+  const moveArray = [
+    [-10, -10],
+    [-20, -20],
+    [-50, -50],
+  ];
+
+  // useEffect(() => {}, []);
+  //@TODO figure out how to dynamically update spring variables
   const { x, y } = useSpring({
     x: moveMap ? latDelta : centerLat,
     y: moveMap ? lonDelta : centerLong,
@@ -74,6 +83,8 @@ const Map = (props) => {
   return (
     <>
       <TempBtn onClick={() => setMoveMap((prev) => !prev)}>click me</TempBtn>
+      {/* <button onClick={() => setMoveIndex(1)}>1 one</button>
+      <button onClick={() => setMoveIndex(2)}>2 two</button> */}
       <MapSVG viewBox={to([x, y], (x, y) => `${x},${y},${width},${height}`)}>
         <TerritoryBoundaries path={path} data={usStates} />
         <TerritoryBoundaries path={path} data={canadianProvinces} />
