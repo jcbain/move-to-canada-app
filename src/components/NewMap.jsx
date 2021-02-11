@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSpring, animated, to } from "react-spring";
 import styled from "styled-components";
 import { geoPath } from "d3-geo";
 
@@ -9,14 +10,20 @@ import canadianProvinces from "../data/canada";
 import AnimatedRoute from "./AnimatedRoute";
 
 //will replace former MapContainer.js
-
-const MapSVG = styled.svg`
+const TempBtn = styled.button`
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  z-index: 1000;
+`;
+const MapSVG = styled(animated.svg)`
   width: 100%;
   height: 100%;
 `;
 
 const Map = (props) => {
   const { route, routeRefs, triggerRefs } = props;
+  const [moveMap, setMoveMap] = useState(false);
 
   const [moveForward, setMoveForward] = useState(false);
 
@@ -32,6 +39,27 @@ const Map = (props) => {
     centerLong,
     centerLat
   );
+
+  const calculateMapMove = (coords, projection, height, width) => {
+    const [lonMove, latMove] = projection(coords);
+    const lonDelta = lonMove - height / 2;
+    const latDelta = latMove - width / 2;
+    return { lonDelta, latDelta };
+  };
+  const { lonDelta, latDelta } = calculateMapMove(
+    [-111.96755, 48.99651],
+    projection,
+    height,
+    width
+  );
+  const { x, y } = useSpring({
+    x: moveMap ? latDelta : centerLat,
+    y: moveMap ? lonDelta : centerLong,
+    config: {
+      // mass: 100,
+    },
+  });
+
   // TODO: The code below demonstrates how to update the viewbox where the values inside of the projection call are where you want to go. The latDelta and lonDelta become the new x,y values in viewbox
   // May need to update spring to v9 for viewbox springs https://spectrum.chat/react-spring/general/modify-spring-value~d159241c-9f91-4d74-9943-cfc765c59abd
   // console.log(projection([-111.96755, 48.99651]));
@@ -39,7 +67,11 @@ const Map = (props) => {
   // const lonDelta = lonMove - height / 2;
   // const latDelta = latMove - width / 2;
 
-  console.log(lonDelta, latDelta);
+  // console.log(lonDelta, latDelta);
+
+  console.log(
+    calculateMapMove([-111.96755, 48.99651], projection, height, width)
+  );
 
   const path = geoPath().projection(projection);
 
@@ -57,10 +89,16 @@ const Map = (props) => {
 
   return (
     <>
-      <MapSVG viewBox={[centerLong, centerLat, width, height]}>
+      <TempBtn onClick={() => setMoveMap((prev) => !prev)}>click me</TempBtn>
+      {/* <MapSVG viewBox={[centerLong, centerLat, width, height]}> */}
+      <MapSVG
+        viewBox={to([x, y], (x, y) => `${x},${y},${width},${height}`)}
+        // style={{
+        //   viewBox: `${centerLat},${centerLong},${width},${height}`,
+        // }}
+      >
         <TerritoryBoundaries path={path} data={usStates} />
         <TerritoryBoundaries path={path} data={canadianProvinces} />
-
         {routes}
       </MapSVG>
     </>
