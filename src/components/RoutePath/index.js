@@ -12,7 +12,7 @@ const RoutePath = ({ percentShown, pathData }) => {
       console.log(ref.current.getTotalLength());
       setLength(ref.current.getTotalLength());
     }
-  }, [setLength]);
+  });
 
   return (
     <>
