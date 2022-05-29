@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import Reset from "./styles/Reset";
 import MapProvider from "./contexts/MapProvider";
 
 import RoutePath from "./components/RoutePath";
@@ -22,6 +23,7 @@ function App() {
   console.log("reoutes", routes.features[12]);
   return (
     <MapProvider>
+      <Reset />
       <div className="App">
         <Map />
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 841.9 595.3">
