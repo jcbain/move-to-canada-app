@@ -2,11 +2,11 @@ import { useMap } from "../../contexts/MapProvider";
 import { MapParent, MapContainer } from "./styles";
 
 const Map = () => {
-  const { map, mapId } = useMap();
+  const { mapContainer } = useMap();
 
   return (
     <MapParent>
-      <MapContainer id={mapId} />;
+      <MapContainer ref={mapContainer} />;
     </MapParent>
   );
 };
